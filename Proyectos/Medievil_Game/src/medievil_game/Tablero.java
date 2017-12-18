@@ -11,11 +11,11 @@ import javax.swing.*;
  * @author Mazariegos
  */
 public class Tablero extends javax.swing.JFrame {
-    JLabel lblDimX,lblDimY;
+    JLabel lblDimX,lblDimY,lblPosicion;
     JTextField txtDimX,txtDimY;
-    JButton btnPosicion, btnIngresarDatos;
+    JButton  btnIngresarDatos;
     Scanner opcion = new Scanner(System.in);
-    
+    JLabel [][]tabMatrix;
     public Tablero() {
     }
     public void mostrarTablero(int x, int y){
@@ -25,18 +25,25 @@ public class Tablero extends javax.swing.JFrame {
         setLayout(null);
         System.out.println("Estoy aqui");
         
-        JButton [][]tabMatrix= new JButton[y][x];
+        tabMatrix= new JLabel[y][x];
         for(int i=0;i<x;i++){
             for(int j=0;j<y;j++){
                System.out.println("Estoy aqui"+i*(600/x));
 
-                btnPosicion=new JButton();
-                btnPosicion.setText("P:"+j+","+i);
-                btnPosicion.setBounds(i*(600/x),j*(600/y), 600/x, 600/y);
-                getContentPane().add(btnPosicion);
-                tabMatrix[j][i]=btnPosicion;
+                lblPosicion=new JLabel();
+                lblPosicion.setText("P:"+j+","+i);
+                lblPosicion.setBorder(javax.swing.BorderFactory.
+                        createLineBorder(new java.awt.Color(0, 0, 0)));
+
+                lblPosicion.setBounds((i*(600/x))+25,(j*(600/y))+25, 600/x, 600/y);
+                getContentPane().add(lblPosicion);
+                tabMatrix[j][i]=lblPosicion;
+                
             }
         }
+        ingresarVidasRandom(x);
+        ingresarMinasRandom(x);
+        
     }
     public void ingresarDatos(){
         setVisible(true);
@@ -46,25 +53,25 @@ public class Tablero extends javax.swing.JFrame {
         lblDimX = new JLabel();
         lblDimX.setText("Ingrese Base");
         lblDimX.setBounds(10, 10, 120, 40);
-        getContentPane().add(lblDimX);
        
         lblDimY = new JLabel();
         lblDimY.setText("Ingrese Altura");
-        lblDimY.setBounds(100, 10, 120, 40);
-        getContentPane().add(lblDimY);
+        lblDimY.setBounds(110, 10, 120, 40);
         
         txtDimX = new JTextField();
         txtDimX.setBounds(10, 100, 100, 30);
-        getContentPane().add(txtDimX);
         
         txtDimY = new JTextField();
-        txtDimY.setBounds(150, 100, 100, 30);
-        getContentPane().add(txtDimY);
+        txtDimY.setBounds(110, 100, 100, 30);
         
         btnIngresarDatos = new JButton();
         btnIngresarDatos.setText("Ingresar datos");
         btnIngresarDatos.setBounds(200, 200, 170, 40);
         getContentPane().add(btnIngresarDatos);
+        getContentPane().add(txtDimY);
+        getContentPane().add(txtDimX);
+        getContentPane().add(lblDimY);
+        getContentPane().add(lblDimX);
         
         //Presionar Boton para enviar datos
          btnIngresarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -82,4 +89,43 @@ public class Tablero extends javax.swing.JFrame {
 
        
     }
+    
+    public void ingresarVidasRandom(int valor){
+        
+        valor *=valor;
+        valor*=0.05;
+        int randomX;
+        int randomY;
+        for(int i=0; i<valor;i++){
+            randomX=(int)(Math.random()*valor+1);
+            randomY=(int)(Math.random()*valor+2);
+      
+            System.out.println("Numero"+randomX);
+          if(randomX>18 && randomY>18 && randomX<7 && randomY<7){
+                
+            }else{
+                tabMatrix[randomX][randomY].setText("<3");
+            } 
+           }
+    }
+    public void ingresarMinasRandom(int valor){
+        
+        
+        int numero =valor * valor;
+        numero*=0.10;
+        int randomX;
+        int randomY;
+        for(int i=0; i<valor;i++){
+            randomX=(int)(Math.random()*valor+1);
+            randomY=(int)(Math.random()*valor+2);
+      
+            if(randomX<valor && randomY <valor){
+                System.out.println("Numero Minas"+randomX);
+                tabMatrix[randomX][randomY].setText("Q");
+            }else{
+                    
+            } 
+        }
+    }
+    
 }
