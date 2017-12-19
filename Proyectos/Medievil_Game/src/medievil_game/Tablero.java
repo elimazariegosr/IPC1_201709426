@@ -116,8 +116,8 @@ public class Tablero extends javax.swing.JFrame {
         int randomX;
         int randomY;
         for(int i=0; i<valor;i++){
-            randomX=(int)(Math.random()*valor+1);
-            randomY=(int)(Math.random()*valor+2);
+            randomX=(int)(Math.random()*valor);
+            randomY=(int)(Math.random()*valor);
       
             if(randomX<valor && randomY <valor){
                 System.out.println("Numero Minas"+randomX);
