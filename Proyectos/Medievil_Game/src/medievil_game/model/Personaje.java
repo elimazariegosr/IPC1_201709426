@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package medievil_game.controller;
+package medievil_game.model;
 import java.awt.*;
 import javax.swing.*;
 /**
@@ -25,41 +25,24 @@ public class Personaje {
         this.poder = poder;
         this.imagen = imagen;
     }
-
-    public String[] getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String[] nombre) {
-        this.nombre = nombre;
-    }
-
-    public int[] getAlcance() {
-        return alcance;
-    }
-
-    public void setAlcance(int[] alcance) {
-        this.alcance = alcance;
-    }
-
-    public int[] getPoder() {
-        return poder;
-    }
-
-    public void setPoder(int[] poder) {
-        this.poder = poder;
-    }
-
-    public ImageIcon[] getImagen(int numero) {
-        return imagen;
-    }
-
-    public void setImagen(ImageIcon[] imagen) {
-        this.imagen = imagen;
+    public void agregarPersonajes(){
+        nombre[0]="mago";
+        nombre[1]="guerrero";
+        nombre[2]="princesa";
+        
+        alcance[0]=4;
+        alcance[1]=2;
+        alcance[2]=1;
+        
+        poder[0]=1;
+        poder[1]=2;
+        poder[2]=1;
+        
     }
     public void agregarImagenes(int x, int y)
     {
-     imagen= new ImageIcon[3];    
+     agregarPersonajes();
+     imagen= new ImageIcon[5];    
      System.out.println("estamos aki");
     ImageIcon matemp = new ImageIcon(getClass().getResource("/Pictures/mago.png"));
         Image ma = matemp.getImage();
@@ -73,7 +56,18 @@ public class Personaje {
         
     ImageIcon pritemp = new ImageIcon(getClass().getResource("/Pictures/princesa.png"));
         Image pri = pritemp.getImage();
-        Image iconopri = ma.getScaledInstance(x, y, Image.SCALE_SMOOTH);
+        Image iconopri = pri.getScaledInstance(x, y, Image.SCALE_SMOOTH);
         imagen[2] = new ImageIcon(iconopri);
+    
+        ImageIcon bomtemp = new ImageIcon(getClass().getResource("/Pictures/bomba.png"));
+        Image bom = bomtemp.getImage();
+        Image iconobom = bom.getScaledInstance(x, y, Image.SCALE_SMOOTH);
+        imagen[3] = new ImageIcon(iconobom);
+    
+    ImageIcon vidatemp = new ImageIcon(getClass().getResource("/Pictures/vida.png"));
+        Image vida = vidatemp.getImage();
+        Image iconovida = vida.getScaledInstance(x, y, Image.SCALE_SMOOTH);
+        imagen[4] = new ImageIcon(iconovida);
+    
     }
 }

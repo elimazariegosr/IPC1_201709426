@@ -15,8 +15,8 @@ import medievil_game.model.*;
 public class Tablero {
     public int tam =0;
     public JPanel fondo;
-    public ImageIcon mago,guerrero,princesa;
-    public int tamcuadrox=0, tamcuadroy=0, posjugx,posjugy;
+    public ImageIcon mago,guerrero,princesa,bomba,vida;
+    public int tamcuadrox=0, tamcuadroy=0, posjugxj1,posjugyj1,posjugxj2,posjugyj2;
     
     public int [][] matriz;
     public JLabel [][] matrizlabel;
@@ -40,13 +40,16 @@ public class Tablero {
                 matriz[j][i]=0;
             }   
         }
-        
         //1 sirve para indicar donde esta jugador 1
-        posjugx=(int)(Math.random()*tam-1);
-        posjugy=(int)(Math.random()*tam-1);;
+        posjugxj1=(int)(Math.random()*tam-1);
+        posjugyj1=(int)(Math.random()*tam-1);
         
-        matriz[posjugx][posjugy]=1;
+        matriz[posjugyj1][posjugxj1]=1;
         //2 sirve para indicar donde esta jugador 2
+        posjugxj2=(int)(Math.random()*tam-1);
+        posjugyj2=(int)(Math.random()*tam-1);
+        
+        matriz[posjugyj2][posjugxj2]=2;
         
         //3 sirve para indicar donde estan las vidas
         
@@ -54,8 +57,13 @@ public class Tablero {
         
         personaje.agregarImagenes(tamcuadrox, tamcuadroy);
         mago=personaje.imagen[0];
+        guerrero=personaje.imagen[1];
+        princesa=personaje.imagen[2];
+        bomba=personaje.imagen[3];
+        vida=personaje.imagen[4];
+        agregarBombaLogica();
+        agregarVidaLogica();
         repintar();
-    //        System.out.println(matriz[0][3]);
     }
     public void repintar(){
         for(int i=0;i<tam;i++){
@@ -78,8 +86,54 @@ public class Tablero {
                     matrizlabel[j][i]=tablero;
                     fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
                     fondo.repaint();
+                }else if(matriz[j][i]==2){
+                    tablero = new JLabel(princesa);
+                    tablero.setOpaque(true);
+                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                    matrizlabel[j][i]=tablero;
+                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                    fondo.repaint();
+                }else if(matriz[j][i]==3){
+                    tablero = new JLabel(bomba);
+                    tablero.setOpaque(true);
+                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                    matrizlabel[j][i]=tablero;
+                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                    fondo.repaint(); 
+                }else if(matriz[j][i]==4){
+                    tablero = new JLabel(vida);
+                    tablero.setOpaque(true);
+                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                    matrizlabel[j][i]=tablero;
+                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                    fondo.repaint(); 
                 }
             }   
+        }
+    }
+    //agregar bombas aleatoriamente a la matriz logica
+     public void agregarBombaLogica(){
+       int numbomba = tam * tam;
+       numbomba*=0.10;
+       System.out.println(numbomba);
+        for(int i=0;i<numbomba;i++){
+            int x= (int)(Math.random()*tam);
+            int y= (int)(Math.random()*tam);
+            matriz[y][x]=3;
+        }
+    }
+     //agregar vidas aleatoriamente  a la matriz logica
+     public void agregarVidaLogica(){
+       int numvida = tam * tam;
+       numvida*=0.05;
+       System.out.println(numvida);
+        for(int i=0;i<numvida;i++){
+            int x= (int)(Math.random()*tam);
+            int y= (int)(Math.random()*tam);
+            matriz[y][x]=4;
         }
     }
 }

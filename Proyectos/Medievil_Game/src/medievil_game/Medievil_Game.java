@@ -18,8 +18,9 @@ public class Medievil_Game {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        TableroView menu = new TableroView();
+        EmpezarJuego menu = new EmpezarJuego();
         menu.setVisible(true);
+       
     }
     
 }

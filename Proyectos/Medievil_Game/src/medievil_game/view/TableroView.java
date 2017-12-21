@@ -155,38 +155,38 @@ public class TableroView extends javax.swing.JFrame {
 
     private void btnAbajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbajoActionPerformed
         // TODO add your handling code here:
-        // TODO add your handling code here:
-          if(!tablerocreado){
-            System.out.println("tablero no credo");
-            return;
-        }
-        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,1,"y");
-        mov.start();
+               turno(Integer.parseInt(numero.getText()),tab,1,"y",0);
+
     }//GEN-LAST:event_btnAbajoActionPerformed
 
     private void btnArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArribaActionPerformed
         // TODO add your handling code here:
-          if(!tablerocreado){
-            System.out.println("tablero no credo");
-            return;
-        }
-        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,-1,"y");
-        mov.start();
+                 turno(Integer.parseInt(numero.getText()),tab,-1,"y",0);
+
     }//GEN-LAST:event_btnArribaActionPerformed
 
     private void btmIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmIzquierdaActionPerformed
         // TODO add your handling code here:
-        
-        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,-1,"x");
-        mov.start();
+              turno(Integer.parseInt(numero.getText()),tab,-1,"x",0);
     }//GEN-LAST:event_btmIzquierdaActionPerformed
 
     private void btnDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDerechaActionPerformed
         // TODO add your handling code here:
-        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,1,"x");
-        mov.start();
+       turno(Integer.parseInt(numero.getText()),tab,1,"x",0);
     }//GEN-LAST:event_btnDerechaActionPerformed
+    boolean turn;
+    public void turno(int numero, Tablero tab,int mov, String dir,int jug){
+        if(turn==false){
+            Movimiento movs = new Movimiento(numero,tab,mov,dir,1);
+            movs.start();
+            turn=true;
 
+        }else if(turn==true){
+            Movimiento movs = new Movimiento(numero,tab,mov,dir,2);
+            movs.start();
+            turn=false;
+        }
+    }
     /**
      * @param args the command line arguments
      */
