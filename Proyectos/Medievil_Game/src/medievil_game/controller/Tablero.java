@@ -41,9 +41,17 @@ public class Tablero {
             }   
         }
         
-        matriz[3][3]=1;
-        posjugx=3;
-        posjugy=3;
+        //1 sirve para indicar donde esta jugador 1
+        posjugx=(int)(Math.random()*tam-1);
+        posjugy=(int)(Math.random()*tam-1);;
+        
+        matriz[posjugx][posjugy]=1;
+        //2 sirve para indicar donde esta jugador 2
+        
+        //3 sirve para indicar donde estan las vidas
+        
+        //4 sirve para indicar donde estan las minas
+        
         personaje.agregarImagenes(tamcuadrox, tamcuadroy);
         mago=personaje.imagen[0];
         repintar();

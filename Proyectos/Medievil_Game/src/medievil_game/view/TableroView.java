@@ -39,8 +39,9 @@ public class TableroView extends javax.swing.JFrame {
         btnArriba = new javax.swing.JButton();
         numero = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(900, 700));
+        setResizable(false);
 
         panel.setBackground(new java.awt.Color(255, 204, 0));
         panel.setPreferredSize(new java.awt.Dimension(600, 600));
@@ -66,28 +67,28 @@ public class TableroView extends javax.swing.JFrame {
             }
         });
 
-        btnAbajo.setText("jButton1");
+        btnAbajo.setText("↓");
         btnAbajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbajoActionPerformed(evt);
             }
         });
 
-        btmIzquierda.setText("jButton1");
+        btmIzquierda.setText("←");
         btmIzquierda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btmIzquierdaActionPerformed(evt);
             }
         });
 
-        btnDerecha.setText("jButton1");
+        btnDerecha.setText("→");
         btnDerecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDerechaActionPerformed(evt);
             }
         });
 
-        btnArriba.setText("jButton1");
+        btnArriba.setText("↑");
         btnArriba.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnArribaActionPerformed(evt);
@@ -101,23 +102,21 @@ public class TableroView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
+                .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtCuadros)
                         .addComponent(btnEnviar, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
-                    .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(numero, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(361, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(721, Short.MAX_VALUE)
-                    .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(476, 476, 476)))
+                .addContainerGap(365, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,13 +136,9 @@ public class TableroView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(197, 197, 197))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(409, Short.MAX_VALUE)
-                    .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(196, 196, 196)))
         );
 
         pack();
@@ -160,6 +155,13 @@ public class TableroView extends javax.swing.JFrame {
 
     private void btnAbajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbajoActionPerformed
         // TODO add your handling code here:
+        // TODO add your handling code here:
+          if(!tablerocreado){
+            System.out.println("tablero no credo");
+            return;
+        }
+        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,1,"y");
+        mov.start();
     }//GEN-LAST:event_btnAbajoActionPerformed
 
     private void btnArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArribaActionPerformed
@@ -168,16 +170,21 @@ public class TableroView extends javax.swing.JFrame {
             System.out.println("tablero no credo");
             return;
         }
-        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab);
+        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,-1,"y");
         mov.start();
     }//GEN-LAST:event_btnArribaActionPerformed
 
     private void btmIzquierdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmIzquierdaActionPerformed
         // TODO add your handling code here:
+        
+        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,-1,"x");
+        mov.start();
     }//GEN-LAST:event_btmIzquierdaActionPerformed
 
     private void btnDerechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDerechaActionPerformed
         // TODO add your handling code here:
+        Movimiento mov = new Movimiento(Integer.parseInt(numero.getText()),tab,1,"x");
+        mov.start();
     }//GEN-LAST:event_btnDerechaActionPerformed
 
     /**
