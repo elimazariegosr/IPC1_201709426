@@ -11,10 +11,10 @@ import javax.swing.*;
  * @author Mazariegos
  */
 public class Personaje {
-    private String [] nombre = new String[3];
-    private int [] alcance = new int [3];
-    private int [] poder = new int [3];
-    private int [] orden;
+    public String [] nombre = new String[3];
+    public int [] alcance = new int [3];
+    public int [] poder = new int [3];
+    public int [] orden;
     public ImageIcon [] imagen;
 
     public Personaje() {

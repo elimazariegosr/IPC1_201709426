@@ -27,6 +27,7 @@ public class Tablero {
     public int tamcuadrox=0, tamcuadroy=0, posjugxj1,posjugyj1,posjugxj2,posjugyj2;
     public int [][] matriz;
     public JLabel [][] matrizlabel;
+    
     public String nombre1,inipersonaje;
     Personaje personaje = new Personaje();
     
@@ -133,11 +134,11 @@ public class Tablero {
     public void repintar(){
         for(int i=0;i<tam;i++){
             for(int j=0;j<tam;j++){
-                JLabel tablero;
+                JLabel tablero,vid;
                 switch (matriz[j][i]) {
                     case 0:
                         tablero = new JLabel();
-                        tablero.setOpaque(true);
+                        tablero.setOpaque(false);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
                         matrizlabel[j][i]=tablero;
@@ -149,6 +150,7 @@ public class Tablero {
                         tablero.setOpaque(true);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        tablero.setBackground(Color.blue);
                         matrizlabel[j][i]=tablero;
                         fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
                         fondo.repaint();
@@ -158,13 +160,15 @@ public class Tablero {
                         tablero.setOpaque(true);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        tablero.setBackground(Color.red);
+
                         matrizlabel[j][i]=tablero;
                         fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
                         fondo.repaint();
                     break;
                     case 3:
                         tablero = new JLabel(bomba);
-                        tablero.setOpaque(true);
+                        tablero.setOpaque(false);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
                         matrizlabel[j][i]=tablero;
@@ -173,7 +177,7 @@ public class Tablero {
                     break;
                     case 4:
                         tablero = new JLabel(vida);
-                        tablero.setOpaque(true);
+                        tablero.setOpaque(false);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0))); 
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
                         matrizlabel[j][i]=tablero;

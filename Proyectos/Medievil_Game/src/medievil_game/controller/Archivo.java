@@ -8,14 +8,13 @@ package medievil_game.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import medievil_game.model.Personaje;
 
 /**
  *
- * @author Mazariegos
  */
 public class Archivo {
 
@@ -38,5 +37,40 @@ public class Archivo {
         } catch (IOException e) {
         }
     }
-      
+    public void guardarNombreJ(String nombre1,int num0,int num1, int num2,int idJug){
+        File archivo = new File("Nombres"+idJug+".txt");
+        Personaje personaje = new Personaje();
+        personaje.agregarPersonajes();
+            if(archivo.exists()){
+            }
+            try{
+                System.out.println("numero1:"+num0);
+                FileWriter fw = new FileWriter(archivo);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.write("Nombre: "+nombre1+""
+                + "Orden de Personajes"
+                + "1. "+personaje.nombre[num0]+"" 
+                + "2. "+personaje.nombre[num1]+""
+                + "3. "+personaje.nombre[num2]);
+                
+                pw.close();
+                bw.close();
+            }catch(IOException e){
+            }
+    }
+     public void guardarTam(String tamx){
+        File archivo = new File("Tamaño.txt");
+            if(archivo.exists()){
+            }
+            try{
+                FileWriter fw = new FileWriter(archivo);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.write(tamx);
+                pw.close();
+                bw.close();
+            }catch(IOException e){
+            }
+    } 
 }

@@ -273,11 +273,18 @@ public class EmpezarJuego extends javax.swing.JFrame {
         // TODO add your handling code here:
                 if(lbl1.getText()!="." && lbl2.getText()!="." && lbl3.getText()!="." &&
                         lbl4.getText()!="." && lbl5.getText()!="." && lbl6.getText()!="." &&
-                        txtjugador1.getText()!=null && txtjugador2.getText() !=null &&
+                        txtjugador1.getText()!="" && txtjugador2.getText() !=null &&
                         txteny.getText()!=null && txtenx!= null){
                 
                 arch.ordenJ(lbl1.getText(),lbl2.getText(),lbl3.getText(),
                         lbl4.getText(),lbl5.getText(),lbl6.getText());
+                
+                arch.guardarNombreJ(txtjugador1.getText(),Integer.parseInt(lbl1.getText()),
+                        Integer.parseInt(lbl2.getText()),Integer.parseInt(lbl3.getText()),1);
+                
+                arch.guardarNombreJ(txtjugador2.getText(),Integer.parseInt(lbl4.getText()),
+                        Integer.parseInt(lbl5.getText()),Integer.parseInt(lbl6.getText()),2);
+                arch.guardarTam(txteny.getText());
                 Tablero tab = new Tablero();
                 TableroView menu = new TableroView();
                 menu.setVisible(true);
