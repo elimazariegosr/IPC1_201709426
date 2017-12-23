@@ -5,35 +5,103 @@
  */
 package medievil_game.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.ImageIcon;
+import medievil_game.model.Personaje;
 
 /**
  *
  * @author Mazariegos
  */
 public class Movimiento extends Thread {
-    public int cantidad,dir,posicionx,posiciony;
-    public String xoy;
-    public int turno;
+    public int cantidad,dir,posicionx,posiciony,turnpersj1,turnpersj2;
+    public String xoy,orden1,orden2;
+    public int turno,numero;
     public Tablero tab = null;
     public ImageIcon nuevaimagen;
-    public Movimiento(int cantidad,Tablero tab,int dir,String xoy,int turno) {
+    Personaje personaje = new Personaje();
+    public Movimiento(){
+    }
+    public Movimiento(int cantidad,Tablero tab,int dir,String xoy,int turno,
+            int turnpersj1,int turnpersj2) {
         this.cantidad=cantidad;
         this.tab=tab;
         this.dir=dir;
         this.xoy=xoy;
         this.turno=turno;
+        this.turnpersj1=turnpersj1;
+        this.turnpersj2=turnpersj2;
+    leerFile();
+        
+
+    }
+    
+    public void guardarOrden(int ord1,int ord2,int ord3,int ord4,int ord5,int ord6){
+        System.out.println(ord1+" "+ord2);
+    }
+    
+    public void validarTurnoP2(){
+         
+    }
+    public void validarTurnoP1(){
+         
     }
     //mover hacia arriba o abajo
     public void mover(int cantidad,int dir,String xoy,int turno){
-        //
         if(turno==1){
-            nuevaimagen=tab.mago;
+                 switch (turnpersj1) {
+                    case 0:
+                        System.out.println("personaje en el orden "+turnpersj1);
+                        if(orden1.charAt(0)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(0)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(0)=='2'){nuevaimagen=tab.princesa;}
+
+                        break;
+                    case 1:
+                        System.out.println("personaje en el orden "+turnpersj1);
+                        if(orden1.charAt(1)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(1)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(1)=='2'){nuevaimagen=tab.princesa;}
+                        break;
+                    case 2:
+                        System.out.println("personaje en el orden "+turnpersj1);
+                        if(orden1.charAt(2)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(2)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(2)=='2'){nuevaimagen=tab.princesa;}
+
+                        break;
+                
+            }
             posicionx=tab.posjugxj1;
             posiciony=tab.posjugyj1;
-            System.out.println();
+            System.out.println(numero);
         }else if(turno==2){
-            nuevaimagen=tab.princesa;
+                 switch (turnpersj2) {
+                    case 0:
+                        System.out.println("personaje en el orden "+turnpersj2);
+                        if(orden1.charAt(3)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(3)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(3)=='2'){nuevaimagen=tab.princesa;}
+
+                        break;
+                    case 1:
+                        System.out.println("personaje en el orden "+turnpersj2);
+                        if(orden1.charAt(4)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(4)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(4)=='2'){nuevaimagen=tab.princesa;}
+                        break;
+                    case 2:
+                        System.out.println("personaje en el orden "+turnpersj2);
+                        if(orden1.charAt(5)=='0'){nuevaimagen=tab.mago;}
+                        if(orden1.charAt(5)=='1'){nuevaimagen=tab.guerrero;}
+                        if(orden1.charAt(5)=='2'){nuevaimagen=tab.princesa;}
+
+                        break;
+                
+            }
+             
             posicionx=tab.posjugxj2;
             posiciony=tab.posjugyj2;
         }
@@ -103,10 +171,33 @@ public class Movimiento extends Thread {
     }
     
     public void validarVidas(int x, int y,int jug){
-        if(tab.matriz[y][x]==3){
-            System.out.println("ha pasado por una bomba jugador "+jug);
-        }else if(tab.matriz[y][x]==4){
-            System.out.println("ha pasado por una vida jugador "+jug);
+        switch (tab.matriz[y][x]) {
+            case 3:
+                System.out.println("ha pasado por una bomba jugador "+jug);
+                break;
+            case 4:
+                System.out.println("ha pasado por una vida jugador "+jug);
+            break;
+        }
+    }
+     public void leerFile(){
+       
+        BufferedReader br1=null,br2=null;
+        try{
+        String linea;
+        br1 = new BufferedReader(new FileReader("ordenJ.txt"));
+        //br2 = new BufferedReader(new FileReader(""));  
+        while((linea = br1.readLine()) !=null){
+                orden1=linea;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (br1!= null )br1.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }

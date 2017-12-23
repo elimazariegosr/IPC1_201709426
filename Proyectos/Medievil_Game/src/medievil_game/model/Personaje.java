@@ -14,6 +14,7 @@ public class Personaje {
     private String [] nombre = new String[3];
     private int [] alcance = new int [3];
     private int [] poder = new int [3];
+    private int [] orden;
     public ImageIcon [] imagen;
 
     public Personaje() {
@@ -39,11 +40,26 @@ public class Personaje {
         poder[2]=1;
         
     }
+    
+    public void agregarOrden(int primero, int segundo, int tercero,
+            int cuarto,int quinto ,int sexto){
+        agregarPersonajes();
+    
+        orden = new int[6];
+        orden[0]=primero;
+        orden[1]=segundo;
+        orden[2]=tercero;
+        orden[3]=cuarto;
+        orden[4]=quinto;
+        orden[5]=sexto;
+        
+    }
     public void agregarImagenes(int x, int y)
     {
+        
      agregarPersonajes();
      imagen= new ImageIcon[5];    
-     System.out.println("estamos aki");
+     System.out.println("agregando imagenes");
     ImageIcon matemp = new ImageIcon(getClass().getResource("/Pictures/mago.png"));
         Image ma = matemp.getImage();
         Image iconomag = ma.getScaledInstance(x, y, Image.SCALE_SMOOTH);

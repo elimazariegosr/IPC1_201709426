@@ -6,28 +6,62 @@
 package medievil_game.controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.*;
 import medievil_game.model.*;
+import medievil_game.view.TableroView;
 /**
  *
  * @author Mazariegos
  */
 public class Tablero {
-    public int tam =0;
+
+    /**
+     *
+     */
+    public int tam=10;
     public JPanel fondo;
-    public ImageIcon mago,guerrero,princesa,bomba,vida;
+    public ImageIcon mago,guerrero,princesa,bomba,vida,inipersj1,inipersj2;
     public int tamcuadrox=0, tamcuadroy=0, posjugxj1,posjugyj1,posjugxj2,posjugyj2;
-    
     public int [][] matriz;
     public JLabel [][] matrizlabel;
-    
+    public String nombre1,inipersonaje;
     Personaje personaje = new Personaje();
-    public Tablero(int tam, JPanel fondo){
-        this.tam=tam;
-        this.fondo=fondo;
-        llenar(tam);
+    
+    
+    public Tablero() {
     }
     
+    public Tablero(JPanel fondo){
+        this.fondo=fondo;
+        System.out.println("en el tablero");
+        leerFile();
+        llenar(tam);
+    }
+    public void leerFile(){
+       System.out.println("leyendo");
+         BufferedReader br1=null,br2=null;
+      
+       try{
+           String stri;
+        br1 = new BufferedReader(new FileReader("ordenJ.txt"));
+        //br2 = new BufferedReader(new FileReader(""));  
+        while((stri = br1.readLine()) !=null){
+                inipersonaje=stri;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (br1!= null )br1.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+      
+    }
     public void llenar(int tam){
         tamcuadrox = 600/tam;
         tamcuadroy = 600/tam;
@@ -54,8 +88,39 @@ public class Tablero {
         //3 sirve para indicar donde estan las vidas
         
         //4 sirve para indicar donde estan las minas
-        
+        char pers1,pers2;
+        pers1=inipersonaje.charAt(0);
+        pers2=inipersonaje.charAt(3);
         personaje.agregarImagenes(tamcuadrox, tamcuadroy);
+       
+        System.out.println("hola mi"+pers1);
+        System.out.println("hola mi"+pers2);
+        switch (pers1) {
+            case '0':
+                inipersj1=personaje.imagen[0];
+                break;
+            case '1':
+                inipersj1=personaje.imagen[1];
+                break;
+            case '2':
+                inipersj1=personaje.imagen[2];
+                break;
+            default:
+                break;
+        }
+        switch (pers2) {
+            case '0':
+                inipersj2=personaje.imagen[0];
+                break;
+            case '1':
+                inipersj2=personaje.imagen[1];
+                break;
+            case '2':
+                inipersj2=personaje.imagen[2];
+                break;
+            default:
+                break;
+        }
         mago=personaje.imagen[0];
         guerrero=personaje.imagen[1];
         princesa=personaje.imagen[2];
@@ -69,47 +134,52 @@ public class Tablero {
         for(int i=0;i<tam;i++){
             for(int j=0;j<tam;j++){
                 JLabel tablero;
-                if(matriz[j][i]==0){
-                    tablero = new JLabel();
-                    tablero.setOpaque(true);
-                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                    matrizlabel[j][i]=tablero;
-                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
-                    fondo.repaint();
-    
-                }else if(matriz[j][i]==1){
-                    tablero = new JLabel(mago);
-                    tablero.setOpaque(true);
-                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                    matrizlabel[j][i]=tablero;
-                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
-                    fondo.repaint();
-                }else if(matriz[j][i]==2){
-                    tablero = new JLabel(princesa);
-                    tablero.setOpaque(true);
-                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                    matrizlabel[j][i]=tablero;
-                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
-                    fondo.repaint();
-                }else if(matriz[j][i]==3){
-                    tablero = new JLabel(bomba);
-                    tablero.setOpaque(true);
-                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                    matrizlabel[j][i]=tablero;
-                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
-                    fondo.repaint(); 
-                }else if(matriz[j][i]==4){
-                    tablero = new JLabel(vida);
-                    tablero.setOpaque(true);
-                    tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
-                    tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                    matrizlabel[j][i]=tablero;
-                    fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
-                    fondo.repaint(); 
+                switch (matriz[j][i]) {
+                    case 0:
+                        tablero = new JLabel();
+                        tablero.setOpaque(true);
+                        tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                        tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        matrizlabel[j][i]=tablero;
+                        fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                        fondo.repaint();
+                    break;
+                    case 1:
+                        tablero = new JLabel(inipersj1);
+                        tablero.setOpaque(true);
+                        tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                        tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        matrizlabel[j][i]=tablero;
+                        fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                        fondo.repaint();
+                    break;
+                    case 2:
+                        tablero = new JLabel(inipersj2);
+                        tablero.setOpaque(true);
+                        tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                        tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        matrizlabel[j][i]=tablero;
+                        fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                        fondo.repaint();
+                    break;
+                    case 3:
+                        tablero = new JLabel(bomba);
+                        tablero.setOpaque(true);
+                        tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                        tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        matrizlabel[j][i]=tablero;
+                        fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                        fondo.repaint();
+                    break;
+                    case 4:
+                        tablero = new JLabel(vida);
+                        tablero.setOpaque(true);
+                        tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0))); 
+                        tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
+                        matrizlabel[j][i]=tablero;
+                        fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
+                        fondo.repaint();
+                    break;
                 }
             }   
         }
@@ -122,7 +192,10 @@ public class Tablero {
         for(int i=0;i<numbomba;i++){
             int x= (int)(Math.random()*tam);
             int y= (int)(Math.random()*tam);
-            matriz[y][x]=3;
+            if(matriz[y][x]!=2 && matriz[y][x]!=1){
+                matriz[y][x]=3;
+            }
+            
         }
     }
      //agregar vidas aleatoriamente  a la matriz logica
@@ -133,7 +206,9 @@ public class Tablero {
         for(int i=0;i<numvida;i++){
             int x= (int)(Math.random()*tam);
             int y= (int)(Math.random()*tam);
-            matriz[y][x]=4;
+             if(matriz[y][x]!=2 && matriz[y][x]!=1){
+                matriz[y][x]=4;
+            }
         }
     }
 }
