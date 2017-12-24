@@ -5,12 +5,15 @@
  */
 package medievil_game.controller;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Color.red;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import medievil_game.model.Personaje;
 
 /**
@@ -24,8 +27,15 @@ public class Movimiento extends Thread {
     public int turno,numero;
     public Tablero tab = null;
     public ImageIcon nuevaimagen;
+    public JPanel panelatacar;
+    public JButton [] vecbtn;
+    
     Personaje personaje = new Personaje();
     public Movimiento(){
+    }
+    public Movimiento(JPanel panelatacar){
+        this.panelatacar=panelatacar;
+        agregarBtnAtacar();
     }
     public Movimiento(int cantidad,Tablero tab,int dir,String xoy,int turno,
             int turnpersj1,int turnpersj2) {
@@ -40,7 +50,18 @@ public class Movimiento extends Thread {
         
 
     }
-    
+    public void agregarBtnAtacar(){
+        vecbtn = new JButton[1];
+        JButton btnatacar;
+        btnatacar = new JButton();
+        btnatacar.setBounds(10, 10, 120, 20);
+        btnatacar.setText("Atacar");
+        vecbtn[0]=btnatacar;
+        panelatacar.add(vecbtn[0], BorderLayout.CENTER);
+        panelatacar.repaint();
+        
+        
+    }
     public void guardarOrden(int ord1,int ord2,int ord3,int ord4,int ord5,int ord6){
         System.out.println(ord1+" "+ord2);
     }
@@ -78,7 +99,7 @@ public class Movimiento extends Thread {
                 if(orden1.charAt(0)=='0'){nuevaimagen=tab.mago;}
                 if(orden1.charAt(0)=='1'){nuevaimagen=tab.guerrero;}
                 if(orden1.charAt(0)=='2'){nuevaimagen=tab.princesa;}
-
+                
                 break;
             case 1:
                 System.out.println("personaje en el orden "+turnpersj1);
@@ -99,17 +120,17 @@ public class Movimiento extends Thread {
     //mover hacia arriba o abajo
     public void mover(int cantidad,int dir,String xoy,int turno){
         if(turno==1){
+            validarTurnoP2();
             
-            validarTurnoP1();
-                color=Color.BLUE;
+            color=Color.YELLOW;
              
             posicionx=tab.posjugxj1;
             posiciony=tab.posjugyj1;
             System.out.println(numero);
         }else if(turno==2){
+                validarTurnoP1();
             
-                validarTurnoP2();
-                 color=Color.red;   
+                 color=Color.GREEN;   
                 
             posicionx=tab.posjugxj2;
             posiciony=tab.posjugyj2;
@@ -117,11 +138,13 @@ public class Movimiento extends Thread {
         switch(xoy){
             //mover en y
            case "y":
+               
                for(int i=0;i<cantidad;i++){
                     try{ 
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
                         if(posiciony-1==-1 && dir==-1 ||posiciony+1==tab.tam && dir==1){
-                             tab.matrizlabel[posiciony][posicionx].setOpaque(false);
+                            quitarVidaSalir(turno);
+                            tab.matrizlabel[posiciony][posicionx].setOpaque(false);
                             tab.matrizlabel[posiciony][posicionx].setIcon(null);
                             tab.matrizlabel[posiciony][posicionx].setBackground(null);
                             validarVidas(tab.tam/2,tab.tam/2,turno);
@@ -158,18 +181,22 @@ public class Movimiento extends Thread {
                 for(int i=0;i<cantidad;i++){
                     try{
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
+                        ataqueMago(posicionx,posiciony,turno);
+
                         if(posicionx-1==-1  && dir==-1 || posicionx+1==tab.tam  && dir==1){
+                            quitarVidaSalir(turno);
                             tab.matrizlabel[posiciony][posicionx].setOpaque(false);
                             tab.matrizlabel[posiciony][posicionx].setIcon(null);
                             tab.matrizlabel[posiciony][posicionx].setBackground(null);
-
+                            
                             validarVidas(tab.tam/2,tab.tam/2,turno);
                             tab.matrizlabel[posiciony=tab.tam/2][posicionx=tab.tam/2]
                                 .setIcon(nuevaimagen);
+                            
                             tab.matrizlabel[posiciony][posicionx].setOpaque(true);
                             tab.matrizlabel[posiciony][posicionx]
                                 .setBackground(color);
-
+                            
                            
                             tab.matriz[posiciony][posicionx]=0;
                              guardarPosicion(posicionx,posiciony,turno);
@@ -207,17 +234,96 @@ public class Movimiento extends Thread {
     }
     
     public void validarVidas(int x, int y,int jug){
+        if(jug==1){
+
         switch (tab.matriz[y][x]) {
+            //quitar vidas
             case 3:
-                System.out.println("ha pasado por una bomba jugador "+jug);
-                
+                for(int i =9;i>0;i--){
+                    System.out.println("i: " + i);
+                    if(tab.vecj1[i]==1){
+                        tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj1[i].setBackground(null);
+                        tab.vecvidasj1[i].setText("");
+                        tab.vecj1[i]=0;
+                       return;
+                    }
+                }
                 break;
+                //agregar vidas
             case 4:
-                System.out.println("ha pasado por una vida jugador "+jug);
+                   for(int i =0;i<10;i++){
+                    if(tab.vecj1[i]==0){
+                        tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj1[i].setBackground(Color.RED);
+                        tab.vecvidasj1[i].setText("+");
+                        tab.vecj1[i]=1;
+                       return;
+                    }
+                }
             break;
+        }        
+        }else if(jug==2){
+
+        switch (tab.matriz[y][x]) {
+            //quitar vidas
+            case 3:
+                for(int i =9;i>0;i--){
+                    System.out.println("i: " + i);
+                    if(tab.vecj2[i]==1){
+                        tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj2[i].setBackground(null);
+                        tab.vecvidasj2[i].setText("");
+                        tab.vecj2[i]=0;
+                       return;
+                    }
+                }
+                break;
+                //agregar vidas
+            case 4:
+                   for(int i =0;i<10;i++){
+                    if(tab.vecj2[i]==0){
+                        tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj2[i].setBackground(Color.RED);
+                        tab.vecvidasj2[i].setText("+");
+                        tab.vecj2[i]=1;
+                       return;
+                    }
+                }
+            break;
+        }        
         }
+        
     }
-     public void leerFile(){
+    public void quitarVidaSalir(int jug){
+       
+        for(int i =9;i>0;i--){
+            System.out.println("i: " + i);
+            switch(jug){
+                case 1:
+                    if(tab.vecj1[i]==1){
+                        tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj1[i].setBackground(null);
+                        tab.vecvidasj1[i].setText("");
+                        tab.vecj1[i]=0;
+                       return;
+                    }
+                break;
+                case 2:
+                    if(tab.vecj2[i]==1){
+                        tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
+                        tab.vecvidasj2[i].setBackground(null);
+                        tab.vecvidasj2[i].setText("");
+                        tab.vecj2[i]=0;
+                        return;
+                    }
+                break;
+            }
+           
+        }
+             
+    }
+    public void leerFile(){
        
         BufferedReader br1=null,br2=null;
         try{
@@ -236,5 +342,18 @@ public class Movimiento extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public void ataqueMago(int x, int y, int turno){
+        int numeroCasillas=4;
+        if(turno==1){turno=2;}
+        if(turno==2){turno=1;}
+        
+            if(x>4 && x<tab.tam-4){
+                if(tab.matriz[y][x+4]==turno){
+                    System.out.println("atacando 4 posiciones en x");
+                }
+            }
+        
     }
 }

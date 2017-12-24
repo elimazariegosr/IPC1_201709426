@@ -1,1 +1,4 @@
-Nombre: EliOrden de Personajes1. mago2. guerrero3. princesa
+Nombre: 10
+Orden de Personajes1. princesa
+2. guerrero
+3. mago

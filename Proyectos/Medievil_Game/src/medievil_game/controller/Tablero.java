@@ -22,11 +22,14 @@ public class Tablero {
      *
      */
     public int tam=10;
-    public JPanel fondo;
+    public JPanel fondo,fondovidaj1,fondovidaj2;
     public ImageIcon mago,guerrero,princesa,bomba,vida,inipersj1,inipersj2;
     public int tamcuadrox=0, tamcuadroy=0, posjugxj1,posjugyj1,posjugxj2,posjugyj2;
     public int [][] matriz;
+    public int [] vecj1,vecj2;
     public JLabel [][] matrizlabel;
+    public JLabel [] vecvidasj1, vecvidasj2;
+    public JLabel lblvidaj1,lblvidaj2;
     
     public String nombre1,inipersonaje;
     Personaje personaje = new Personaje();
@@ -35,34 +38,88 @@ public class Tablero {
     public Tablero() {
     }
     
-    public Tablero(JPanel fondo){
+    public Tablero(JPanel fondo,JPanel fondovidaj1, JPanel fondovidaj2){
         this.fondo=fondo;
+        this.fondovidaj1=fondovidaj1;
+        this.fondovidaj2=fondovidaj2;
+        
         System.out.println("en el tablero");
         leerFile();
         llenar(tam);
+        llenarvidas();
     }
-    public void leerFile(){
-       System.out.println("leyendo");
-         BufferedReader br1=null,br2=null;
-      
-       try{
-           String stri;
-        br1 = new BufferedReader(new FileReader("ordenJ.txt"));
-        //br2 = new BufferedReader(new FileReader(""));  
-        while((stri = br1.readLine()) !=null){
-                inipersonaje=stri;
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            try{
-                if (br1!= null )br1.close();
-            }catch(IOException e){
-                e.printStackTrace();
+    public void llenarvidas(){
+        
+        vecj1 = new int[10];
+        vecvidasj1= new JLabel[10];
+        vecj2 = new int[10];
+        vecvidasj2= new JLabel[10];
+        
+        for(int i =0;i<10;i++){
+            if(i<5){
+                vecj1[i]=1;
+                vecj2[i]=1;
+            }else{
+                vecj1[i]=0;
+                vecj2[i]=0;
+            }   
+        }
+        repintarvidasj1();
+        repintarvidasj2();
+    }
+    public void repintarvidasj1(){
+        for(int i=0; i<10;i++){
+            JLabel vidasj1,vidasj2;
+            if(vecj1[i]==1){
+                vidasj1 = new JLabel();
+                vidasj1.setText("+");
+                vidasj1.setOpaque(true);
+                vidasj1.setBackground(Color.red);
+                vidasj1.setBounds(i*20, 0, 15, 15);
+                vidasj1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                vecvidasj1[i]=vidasj1;
+                fondovidaj1.add(vecvidasj1[i],BorderLayout.CENTER);
+                fondovidaj1.repaint();
+                
+            }else if(vecj1[i]==0 && vecj2[i]==0){
+                vidasj1= new JLabel();
+                vidasj1.setOpaque(true);
+                vidasj1.setText(" ");
+                vidasj1.setBounds(i*20, 0, 15, 15);
+                vidasj1.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                vecvidasj1[i]=vidasj1;
+                fondovidaj1.add(vecvidasj1[i],BorderLayout.CENTER);
+                fondovidaj1.repaint();
             }
         }
-      
     }
+    public void repintarvidasj2(){
+        for(int i=0; i<10;i++){
+            JLabel vidasj1,vidasj2;
+            if(vecj2[i]==1){
+                vidasj2 = new JLabel();
+                vidasj2.setText("+");
+                vidasj2.setOpaque(true);
+                vidasj2.setBackground(Color.red);
+                vidasj2.setBounds(i*20, 0, 15, 15);
+                vidasj2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                vecvidasj2[i]=vidasj2;
+                fondovidaj2.add(vecvidasj2[i],BorderLayout.CENTER);
+                fondovidaj2.repaint();
+
+            }else if(vecj2[i]==0){
+                vidasj2= new JLabel();
+                vidasj2.setOpaque(true);
+                vidasj2.setText(" ");
+                vidasj2.setBounds(i*20, 0, 15, 15);
+                vidasj2.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+                vecvidasj2[i]=vidasj2;
+                fondovidaj2.add(vecvidasj2[i],BorderLayout.CENTER);
+                fondovidaj2.repaint();
+            }
+        }
+    }
+   
     public void llenar(int tam){
         tamcuadrox = 600/tam;
         tamcuadroy = 600/tam;
@@ -150,7 +207,7 @@ public class Tablero {
                         tablero.setOpaque(true);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                        tablero.setBackground(Color.blue);
+                        tablero.setBackground(Color.yellow);
                         matrizlabel[j][i]=tablero;
                         fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
                         fondo.repaint();
@@ -160,7 +217,7 @@ public class Tablero {
                         tablero.setOpaque(true);
                         tablero.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
                         tablero.setBounds(i*tamcuadrox,j*tamcuadroy,tamcuadrox,tamcuadroy);
-                        tablero.setBackground(Color.red);
+                        tablero.setBackground(Color.GREEN);
 
                         matrizlabel[j][i]=tablero;
                         fondo.add(matrizlabel[j][i],BorderLayout.CENTER);
@@ -215,4 +272,27 @@ public class Tablero {
             }
         }
     }
+       public void leerFile(){
+       System.out.println("leyendo");
+         BufferedReader br1=null,br2=null;
+      
+       try{
+           String stri;
+        br1 = new BufferedReader(new FileReader("ordenJ.txt"));
+        //br2 = new BufferedReader(new FileReader(""));  
+        while((stri = br1.readLine()) !=null){
+                inipersonaje=stri;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (br1!= null )br1.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+      
+    }
+  
 }

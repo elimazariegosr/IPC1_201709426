@@ -48,12 +48,12 @@ public class Archivo {
                 FileWriter fw = new FileWriter(archivo);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.write("Nombre: "+nombre1+""
-                + "Orden de Personajes"
-                + "1. "+personaje.nombre[num0]+"" 
-                + "2. "+personaje.nombre[num1]+""
-                + "3. "+personaje.nombre[num2]);
-                
+                pw.write("Nombre: "+ nombre1 + "\n");
+                pw.append("Orden de Personajes");
+                pw.append("1. " + personaje.nombre[num0] + "\n");
+                pw.append("2. " + personaje.nombre[num1] + "\n");
+                pw.append("3. " + personaje.nombre[num2] + "\n");
+ 
                 pw.close();
                 bw.close();
             }catch(IOException e){
