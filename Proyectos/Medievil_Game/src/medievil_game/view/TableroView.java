@@ -56,9 +56,6 @@ public class TableroView extends javax.swing.JFrame {
         panelvidj2.repaint();
         panelvidj2.setOpaque(true);
         
-        panelatacar.repaint();
-        panelatacar.setOpaque(true);
-        atac =new Movimiento(panelatacar);
         tab= new Tablero(panel,panelvidasj1,panelvidj2);
         getContentPane().add(lblImagen);
         
@@ -66,6 +63,7 @@ public class TableroView extends javax.swing.JFrame {
       Personaje pers = new Personaje();
       pers.agregarImagenes(tab.tam, tab.tam);
       botones(false);
+        
       }
 
     /**
@@ -81,6 +79,7 @@ public class TableroView extends javax.swing.JFrame {
         btnAbajo.setEnabled(des);
         btmIzquierda.setEnabled(des);
         btnDerecha.setEnabled(des);
+        btnatacar.setEnabled(des);
     }
    
     public void leerFile(int numero){
@@ -122,10 +121,9 @@ public class TableroView extends javax.swing.JFrame {
         txajugadorT = new javax.swing.JTextArea();
         panelvidj2 = new javax.swing.JPanel();
         btntirardado = new javax.swing.JButton();
-        panelatacar = new javax.swing.JPanel();
+        btnatacar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 764));
         setResizable(false);
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -224,7 +222,7 @@ public class TableroView extends javax.swing.JFrame {
         panelvidj2.setLayout(panelvidj2Layout);
         panelvidj2Layout.setHorizontalGroup(
             panelvidj2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 261, Short.MAX_VALUE)
         );
         panelvidj2Layout.setVerticalGroup(
             panelvidj2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,32 +235,27 @@ public class TableroView extends javax.swing.JFrame {
             paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneldatosLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelvidj2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneldatosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelvidasj1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelvidj2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelvidasj1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(44, Short.MAX_VALUE))
-            .addGroup(paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paneldatosLayout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(63, Short.MAX_VALUE)))
         );
         paneldatosLayout.setVerticalGroup(
             paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneldatosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelvidasj1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(panelvidj2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(paneldatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(paneldatosLayout.createSequentialGroup()
-                    .addGap(70, 70, 70)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(219, Short.MAX_VALUE)))
+                .addGap(27, 27, 27))
         );
 
         btntirardado.setText("tirar dado");
@@ -272,16 +265,12 @@ public class TableroView extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelatacarLayout = new javax.swing.GroupLayout(panelatacar);
-        panelatacar.setLayout(panelatacarLayout);
-        panelatacarLayout.setHorizontalGroup(
-            panelatacarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelatacarLayout.setVerticalGroup(
-            panelatacarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        btnatacar.setText("Atacar");
+        btnatacar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnatacarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,9 +289,7 @@ public class TableroView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelatacar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(paneldatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,7 +301,9 @@ public class TableroView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btntirardado))))
+                        .addComponent(btntirardado)
+                        .addGap(43, 43, 43)
+                        .addComponent(btnatacar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,24 +319,22 @@ public class TableroView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 11, Short.MAX_VALUE)
                                 .addComponent(lbljugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(56, 56, 56))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnatacar)
                                     .addComponent(numero, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btntirardado))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(panelatacar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(165, 165, 165))
+                        .addComponent(btnArriba, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAbajo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btmIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(197, 197, 197))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -412,42 +399,62 @@ public class TableroView extends javax.swing.JFrame {
         botones(true);
         btntirardado.setEnabled(false);
     }//GEN-LAST:event_btntirardadoActionPerformed
+
+    private void btnatacarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnatacarActionPerformed
+        // TODO add your handling code here:
+        turno(0,tab,0,"a",0);
+        //botones(true);
+        //btntirardado.setEnabled(true);
+
+    }//GEN-LAST:event_btnatacarActionPerformed
     boolean turn;
     int turnpers1,turnpers2;
     public void turno(int numero, Tablero tab,int mov, String dir,int jug){
+        
         if(turn==false){
                 
             leerFile(2);
-            if(turnpers1==0){
-                System.out.println("tuno"+turnpers1);
-                turnpers1+=1;
-            }else if(turnpers1==1){
-                System.out.println("tuno"+turnpers1);
-                turnpers1+=1;
-            }else if(turnpers1==2){
-                System.out.println("tuno"+turnpers1);
-                turnpers1=0;
+            if(numero==0){
+            turn=false;
+            
+            }else{
+                if(turnpers1==0){
+                    System.out.println("tuno"+turnpers1);
+                    turnpers1+=1;
+                }else if(turnpers1==1){
+                    System.out.println("tuno"+turnpers1);
+                    turnpers1+=1;
+                }else if(turnpers1==2){
+                    System.out.println("tuno"+turnpers1);
+                    turnpers1=0;
+                }
+                turn=true;
             }
             Movimiento movs = new Movimiento(numero,tab,mov,dir,1,turnpers1,0);
-            movs.start();
-           
-            turn=true;
-            
+            movs.start(); 
         }else if(turn==true){
             leerFile(1);
-            if(turnpers2==0){
-                System.out.println("tuno"+turnpers2);
-                turnpers2+=1;
-            }else if(turnpers2==1){
-                System.out.println("tuno"+turnpers2);
-                turnpers2+=1;
-            }else if(turnpers2==2){
-                System.out.println("tuno"+turnpers2);
-                turnpers2=0;
+            
+            if(numero==0){
+                turn=true;
+                
+            }else{
+                if(turnpers2==0){
+                    System.out.println("tuno"+turnpers2);
+                    turnpers2+=1;
+                }else if(turnpers2==1){
+                    System.out.println("tuno"+turnpers2);
+                    turnpers2+=1;
+                }else if(turnpers2==2){
+                    System.out.println("tuno"+turnpers2);
+                    turnpers2=0;
+                }
+                turn=false;
             }
+            
             Movimiento movs = new Movimiento(numero,tab,mov,dir,2,0,turnpers2);
-            movs.start();
-            turn=false;
+            movs.start();                
+            
         }
     }
     /**
@@ -490,13 +497,13 @@ public class TableroView extends javax.swing.JFrame {
     private javax.swing.JButton btnAbajo;
     private javax.swing.JButton btnArriba;
     private javax.swing.JButton btnDerecha;
+    private javax.swing.JButton btnatacar;
     private javax.swing.JButton btntirardado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbljugador1;
     private javax.swing.JTextField numero;
     private javax.swing.JPanel panel;
-    private javax.swing.JPanel panelatacar;
     private javax.swing.JPanel paneldatos;
     private javax.swing.JPanel panelvidasj1;
     private javax.swing.JPanel panelvidasj2;

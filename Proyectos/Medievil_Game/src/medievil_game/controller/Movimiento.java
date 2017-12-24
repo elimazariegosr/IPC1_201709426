@@ -21,10 +21,10 @@ import medievil_game.model.Personaje;
  * @author Mazariegos
  */
 public class Movimiento extends Thread {
-    public int cantidad,dir,posicionx,posiciony,turnpersj1,turnpersj2;
+    public int cantidad,dir,posicionx,posiciony,turnpersj1,turnpersj2,valormatriz;
     public String xoy,orden1,orden2;
     public Color color;
-    public int turno,numero;
+    public int turno,numero,estado;
     public Tablero tab = null;
     public ImageIcon nuevaimagen;
     public JPanel panelatacar;
@@ -35,7 +35,7 @@ public class Movimiento extends Thread {
     }
     public Movimiento(JPanel panelatacar){
         this.panelatacar=panelatacar;
-        agregarBtnAtacar();
+        
     }
     public Movimiento(int cantidad,Tablero tab,int dir,String xoy,int turno,
             int turnpersj1,int turnpersj2) {
@@ -46,21 +46,9 @@ public class Movimiento extends Thread {
         this.turno=turno;
         this.turnpersj1=turnpersj1;
         this.turnpersj2=turnpersj2;
-    leerFile();
+        leerFile();
         
-
-    }
-    public void agregarBtnAtacar(){
-        vecbtn = new JButton[1];
-        JButton btnatacar;
-        btnatacar = new JButton();
-        btnatacar.setBounds(10, 10, 120, 20);
-        btnatacar.setText("Atacar");
-        vecbtn[0]=btnatacar;
-        panelatacar.add(vecbtn[0], BorderLayout.CENTER);
-        panelatacar.repaint();
-        
-        
+    
     }
     public void guardarOrden(int ord1,int ord2,int ord3,int ord4,int ord5,int ord6){
         System.out.println(ord1+" "+ord2);
@@ -119,16 +107,18 @@ public class Movimiento extends Thread {
     }
     //mover hacia arriba o abajo
     public void mover(int cantidad,int dir,String xoy,int turno){
+        //atacar();
         if(turno==1){
-            validarTurnoP2();
-            
+            validarTurnoP1();
+            valormatriz=1;
             color=Color.YELLOW;
              
             posicionx=tab.posjugxj1;
             posiciony=tab.posjugyj1;
             System.out.println(numero);
         }else if(turno==2){
-                validarTurnoP1();
+            valormatriz=2;
+                validarTurnoP2();
             
                  color=Color.GREEN;   
                 
@@ -136,7 +126,27 @@ public class Movimiento extends Thread {
             posiciony=tab.posjugyj2;
         }
         switch(xoy){
-            //mover en y
+            case "a":
+                if(turno==1){
+                   if(turnpersj2==0){
+                       System.out.println("Ataca mago");
+                   }else if(turnpersj1==2){
+                       System.out.println("Ataca mago");
+                   }else if(turnpersj1==2){
+                       System.out.println("Ataca mago");
+                   } 
+                }else if(turno==2){
+                    if(turnpersj2==0){
+                       System.out.println("Ataca mago j2");
+                   }else if(turnpersj2==1){
+                       System.out.println("Ataca mago j2");
+                   }else if(turnpersj2==2){
+                       System.out.println("Ataca mago j2");
+                   } 
+
+                }
+                break;
+           //mover en y
            case "y":
                
                for(int i=0;i<cantidad;i++){
@@ -175,14 +185,13 @@ public class Movimiento extends Thread {
                         Thread.sleep(500);
                     }catch(InterruptedException e){}
                 }
-                tab.matriz[posiciony][posicionx]=1;
+                tab.matriz[posiciony][posicionx]=valormatriz;
             break;
             case "x":
                 for(int i=0;i<cantidad;i++){
                     try{
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
-                        ataqueMago(posicionx,posiciony,turno);
-
+                       
                         if(posicionx-1==-1  && dir==-1 || posicionx+1==tab.tam  && dir==1){
                             quitarVidaSalir(turno);
                             tab.matrizlabel[posiciony][posicionx].setOpaque(false);
@@ -216,7 +225,8 @@ public class Movimiento extends Thread {
                     Thread.sleep(500);
                     }catch(InterruptedException e){}
                 }
-                 tab.matriz[posiciony][posicionx]=1;
+                 tab.matriz[posiciony][posicionx]=valormatriz;
+            
             break;
        } 
     }
@@ -344,16 +354,4 @@ public class Movimiento extends Thread {
         }
     }
     
-    public void ataqueMago(int x, int y, int turno){
-        int numeroCasillas=4;
-        if(turno==1){turno=2;}
-        if(turno==2){turno=1;}
-        
-            if(x>4 && x<tab.tam-4){
-                if(tab.matriz[y][x+4]==turno){
-                    System.out.println("atacando 4 posiciones en x");
-                }
-            }
-        
-    }
 }
