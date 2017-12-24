@@ -7,6 +7,7 @@ package medievil_game.view;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -125,6 +126,11 @@ public class TableroView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+        });
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -407,6 +413,13 @@ public class TableroView extends javax.swing.JFrame {
         //btntirardado.setEnabled(true);
 
     }//GEN-LAST:event_btnatacarActionPerformed
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseExited
+    public void cerrar(){
+        dispose();
+    }
     boolean turn;
     int turnpers1,turnpers2;
     public void turno(int numero, Tablero tab,int mov, String dir,int jug){
@@ -491,7 +504,6 @@ public class TableroView extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmIzquierda;
     private javax.swing.JButton btnAbajo;

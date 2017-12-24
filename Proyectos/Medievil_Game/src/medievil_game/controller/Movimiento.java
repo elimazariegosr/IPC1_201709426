@@ -8,20 +8,26 @@ package medievil_game.controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import static java.awt.Color.red;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import medievil_game.model.Personaje;
+import medievil_game.view.EmpezarJuego;
+import medievil_game.view.TableroView;
 
 /**
  *
  * @author Mazariegos
  */
 public class Movimiento extends Thread {
-    public int cantidad,dir,posicionx,posiciony,turnpersj1,turnpersj2,valormatriz;
+    public int cantidad,dir,posicionx,posiciony,
+            turnpersj1,turnpersj2,valormatriz,enturnoj1, enturnoj2;
     public String xoy,orden1,orden2;
     public Color color;
     public int turno,numero,estado;
@@ -53,61 +59,62 @@ public class Movimiento extends Thread {
     public void guardarOrden(int ord1,int ord2,int ord3,int ord4,int ord5,int ord6){
         System.out.println(ord1+" "+ord2);
     }
-    
+    //vaidacion de turno de persnaje del jugador 2
     public void validarTurnoP2(){
          switch (turnpersj2) {
             case 0:
                 System.out.println("personaje en el orden "+turnpersj2);
-                if(orden1.charAt(3)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(3)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(3)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(3)=='0'){nuevaimagen=tab.mago; enturnoj2=0;}
+                if(orden1.charAt(3)=='1'){nuevaimagen=tab.guerrero;enturnoj2=1;}
+                if(orden1.charAt(3)=='2'){nuevaimagen=tab.princesa;enturnoj2=2;}
 
                 break;
             case 1:
                 System.out.println("personaje en el orden "+turnpersj2);
-                if(orden1.charAt(4)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(4)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(4)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(4)=='0'){nuevaimagen=tab.mago;enturnoj2=0;}
+                if(orden1.charAt(4)=='1'){nuevaimagen=tab.guerrero;enturnoj2=1;}
+                if(orden1.charAt(4)=='2'){nuevaimagen=tab.princesa;enturnoj2=2;}
                 break;
             case 2:
                 System.out.println("personaje en el orden "+turnpersj2);
-                if(orden1.charAt(5)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(5)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(5)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(5)=='0'){nuevaimagen=tab.mago;enturnoj2=0;}
+                if(orden1.charAt(5)=='1'){nuevaimagen=tab.guerrero;enturnoj2=1;}
+                if(orden1.charAt(5)=='2'){nuevaimagen=tab.princesa;enturnoj2=2;}
 
                 break;
 
             }
              
     }
+    // validar turno de persnaje del jugador 1
     public void validarTurnoP1(){
         switch (turnpersj1) {
             case 0:
                 System.out.println("personaje en el orden "+turnpersj1);
-                if(orden1.charAt(0)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(0)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(0)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(0)=='0'){nuevaimagen=tab.mago; enturnoj1=0;}
+                if(orden1.charAt(0)=='1'){nuevaimagen=tab.guerrero; enturnoj1=1;}
+                if(orden1.charAt(0)=='2'){nuevaimagen=tab.princesa; enturnoj1=2;}
                 
                 break;
             case 1:
                 System.out.println("personaje en el orden "+turnpersj1);
-                if(orden1.charAt(1)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(1)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(1)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(1)=='0'){nuevaimagen=tab.mago; enturnoj1=0;}
+                if(orden1.charAt(1)=='1'){nuevaimagen=tab.guerrero; enturnoj1=1;}
+                if(orden1.charAt(1)=='2'){nuevaimagen=tab.princesa; enturnoj1=2;}
                 break;
             case 2:
                 System.out.println("personaje en el orden "+turnpersj1);
-                if(orden1.charAt(2)=='0'){nuevaimagen=tab.mago;}
-                if(orden1.charAt(2)=='1'){nuevaimagen=tab.guerrero;}
-                if(orden1.charAt(2)=='2'){nuevaimagen=tab.princesa;}
+                if(orden1.charAt(2)=='0'){nuevaimagen=tab.mago; enturnoj1=0;}
+                if(orden1.charAt(2)=='1'){nuevaimagen=tab.guerrero;enturnoj1=1;}
+                if(orden1.charAt(2)=='2'){nuevaimagen=tab.princesa; enturnoj1=2;}
 
                 break;
 
        }
     }
-    //mover hacia arriba o abajo
+    //mover en y, x  y validaciondes de ataque
     public void mover(int cantidad,int dir,String xoy,int turno){
-        //atacar();
+        //verificar turno de jugador
         if(turno==1){
             validarTurnoP1();
             valormatriz=1;
@@ -125,30 +132,18 @@ public class Movimiento extends Thread {
             posicionx=tab.posjugxj2;
             posiciony=tab.posjugyj2;
         }
+// si se mueve en x, si se mueve en y o atacar         
         switch(xoy){
             case "a":
                 if(turno==1){
-                   if(turnpersj2==0){
-                       System.out.println("Ataca mago");
-                   }else if(turnpersj1==2){
-                       System.out.println("Ataca mago");
-                   }else if(turnpersj1==2){
-                       System.out.println("Ataca mago");
-                   } 
+                    atacarJ1();   
+    ///ataque del jugador 2                   
                 }else if(turno==2){
-                    if(turnpersj2==0){
-                       System.out.println("Ataca mago j2");
-                   }else if(turnpersj2==1){
-                       System.out.println("Ataca mago j2");
-                   }else if(turnpersj2==2){
-                       System.out.println("Ataca mago j2");
-                   } 
-
+                    atacarJ2();
                 }
-                break;
+            break;
            //mover en y
-           case "y":
-               
+            case "y":
                for(int i=0;i<cantidad;i++){
                     try{ 
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
@@ -307,8 +302,21 @@ public class Movimiento extends Thread {
     }
     public void quitarVidaSalir(int jug){
        
-        for(int i =9;i>0;i--){
+        for(int i =9;i>=0;i--){
             System.out.println("i: " + i);
+           if(i==0){
+               if(turno==1){
+                   turno=2;
+               }else if(turno==2){
+                   turno=1;
+               }
+                JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+turno);
+                EmpezarJuego emp = new EmpezarJuego();
+                TableroView tv = new TableroView();
+                tv.cerrar();
+                emp.setVisible(true);
+                
+           }
             switch(jug){
                 case 1:
                     if(tab.vecj1[i]==1){
@@ -353,5 +361,165 @@ public class Movimiento extends Thread {
             }
         }
     }
-    
+//atacar jugador 1   
+    public void atacarJ1(){
+        if(turnpersj1==0 || turnpersj1==1 || turnpersj1==2){
+            switch (enturnoj1) {
+            //ataque para mago j1
+                case 0:
+                    System.out.println("ataca mago");
+                    for(int i =1; i<=4; i++){
+                        if(posicionx +i <tab.tam){
+                            if(tab.matriz[posiciony][posicionx +i]==2){
+                                System.out.println("derecha");
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                        if(posicionx -i >=0){
+                            if(tab.matriz[posiciony][posicionx -i]==2){
+                                System.out.println("izquierda");
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                        if(posiciony +i < tab.tam){
+                           if(tab.matriz[posiciony +1][posicionx]==2){
+                                System.out.println("abajo");
+                                quitarVidaSalir(2);
+                                return;
+                           }
+                        }
+                        if(posiciony -i >=0){
+                           if(tab.matriz[posiciony -1][posicionx]==2){
+                                System.out.println("arriba");
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                    }   
+                break;
+                //ataque para guerrero j1    
+                case 1:
+                    System.out.println("ataca guerrero");
+                    for(int i =1; i<=2; i++){
+                      if(posicionx +i <tab.tam){
+                            if(tab.matriz[posiciony][posicionx +i]==2){
+                                System.out.println("derecha");
+                                quitarVidaSalir(2);
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                        if(posicionx -i >=0){
+                            if(tab.matriz[posiciony][posicionx -i]==2){
+                                System.out.println("izquierda");
+                                quitarVidaSalir(2);
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                        if(posiciony +i < tab.tam){
+                           if(tab.matriz[posiciony +1][posicionx]==2){
+                                System.out.println("abajo");
+                                quitarVidaSalir(2);
+                                quitarVidaSalir(2);
+                                return;
+                           }
+                        }
+                        if(posiciony -i >=0){
+                           if(tab.matriz[posiciony -1][posicionx]==2){
+                                System.out.println("arriba");
+                                quitarVidaSalir(2);
+                                quitarVidaSalir(2);
+                                return;
+                            }
+                        }
+                    }  
+                break;
+                //ataque para princesa j1    
+                case 2:
+                    System.out.println("ataca princesa");
+                break;
+            }
+        }
+    } 
+//atacar jugador 2    
+    public void atacarJ2(){
+        if(turnpersj2==0 || turnpersj2==1 || turnpersj2==2){
+            switch (enturnoj2) {
+                case 0:
+                    System.out.println("ataca mago");
+                    for(int i =1; i<=4; i++){
+                        if(posicionx +i <tab.tam){
+                            if(tab.matriz[posiciony][posicionx +i]==1){
+                                System.out.println("derecha");
+                                quitarVidaSalir(1);
+                                return;
+                            }
+                        }
+                        if(posicionx -i >=0){
+                            if(tab.matriz[posiciony][posicionx -i]==1){
+                                System.out.println("izquierda");
+                                quitarVidaSalir(1);
+                                return;
+                            }
+                        }
+                        if(posiciony +i < tab.tam){
+                           if(tab.matriz[posiciony +1][posicionx]==1){
+                                System.out.println("abajo");
+                                quitarVidaSalir(1);
+                                return;
+                           }
+                        }
+                        if(posiciony -i >=0){
+                           if(tab.matriz[posiciony -1][posicionx]==1){
+                                System.out.println("arriba");
+                                quitarVidaSalir(1);
+                                return;
+                            }
+                        }                     
+                    }  
+                break;
+                case 1:
+                    System.out.println("ataca guerrero");
+                    for(int i =1; i<=2; i++){
+                        if(posicionx +i <tab.tam){
+                            if(tab.matriz[posiciony][posicionx +i]==1){
+                                System.out.println("derecha");
+                                quitarVidaSalir(1);
+                                quitarVidaSalir(1);
+                                return;
+                            }
+                        }
+                        if(posicionx -i >=0){
+                            if(tab.matriz[posiciony][posicionx -i]==1){
+                                System.out.println("izquierda");
+                                quitarVidaSalir(1);
+                                quitarVidaSalir(1);
+                                return;                            }
+                        }
+                        if(posiciony +i < tab.tam){
+                           if(tab.matriz[posiciony +1][posicionx]==1){
+                                System.out.println("abajo");
+                                 quitarVidaSalir(1);
+                                quitarVidaSalir(1);
+                                return;                          }
+                        }
+                        if(posiciony -i >=0){
+                           if(tab.matriz[posiciony -1][posicionx]==1){
+                                System.out.println("arriba");
+                                quitarVidaSalir(1);
+                                quitarVidaSalir(1);
+                                return;                            
+                           }
+                        }
+                    }  
+                break;
+                case 2:
+                    System.out.println("ataca princesa");
+                break;
+            }
+        }
+    }
 }

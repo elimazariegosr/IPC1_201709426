@@ -294,6 +294,7 @@ public class EmpezarJuego extends javax.swing.JFrame {
                 txtjugador1.setEnabled(false);
                 txteny.setEnabled(false);
                 txtenx.setEnabled(false);
+                dispose();
                 }
     }//GEN-LAST:event_btniniciarActionPerformed
 
