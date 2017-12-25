@@ -31,7 +31,7 @@ public class Tablero {
     public JLabel [] vecvidasj1, vecvidasj2;
     public JLabel lblvidaj1,lblvidaj2,lbltimer;
     
-    public String nombre1,inipersonaje,tamnuevo;
+    public String nombre1,inipersonaje,tamnuevo,guardarj1,guardarj2;
     Personaje personaje = new Personaje();
     
     
@@ -275,16 +275,22 @@ public class Tablero {
         }
     }
      public void leerFile(){
-         BufferedReader br1=null,br2=null;
+         BufferedReader br1=null,br2=null,br3=null,br4=null;
       
        try{
-           String stri,tamnew;
+           String stri,tamnew,jug1,jug2;
            
         br1 = new BufferedReader(new FileReader("ordenJ.txt"));
-        br2 = new BufferedReader(new FileReader("Tamaño.txt"));  
-        while((stri = br1.readLine()) !=null && (tamnew=br2.readLine())!=null){
+        br2 = new BufferedReader(new FileReader("Tamaño.txt"));
+        br3 = new BufferedReader(new FileReader("Nombre1.txt"));
+        br4 = new BufferedReader(new FileReader("Nombre2.txt"));
+        
+         while((stri = br1.readLine()) !=null && (tamnew=br2.readLine())!=null
+                && (jug1 = br3.readLine()) !=null && (jug2=br4.readLine())!=null){
                 inipersonaje=stri;
                 tam=Integer.parseInt(tamnew);
+                guardarj1=jug1;
+                guardarj2=jug2;
             }
         }catch(IOException e){
             e.printStackTrace();
@@ -292,6 +298,9 @@ public class Tablero {
             try{
                 if (br1!= null )br1.close();
                 if (br2!= null )br2.close();
+                if (br3!= null )br3.close();
+                if (br3!= null )br3.close();
+
             }catch(IOException e){
                 e.printStackTrace();
             }

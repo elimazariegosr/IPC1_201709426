@@ -37,7 +37,37 @@ public class Archivo {
         } catch (IOException e) {
         }
     }
-    
+    public void guardarTodo(String jug1, String jug2, int vidasj1,int vidasj2, int tiempo){
+        File archivo = new File("Registros.txt");
+        
+        try{
+                
+             if(archivo.exists()){
+                FileWriter fw = new FileWriter(archivo);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.append(vidasj1 + ", " + jug1 + ", "+tiempo);
+                pw.append(vidasj2 + ", " + jug2 + ", "+tiempo);
+                pw.append("");
+ 
+                pw.close();
+                bw.close();
+ 
+             }else{
+                FileWriter fw = new FileWriter(archivo);
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.write(vidasj1 + ", " + jug1 + ", "+tiempo);
+                pw.append(vidasj2 + ", " + jug2 + ", "+tiempo);
+                pw.append("");
+ 
+                pw.close();
+                bw.close();
+ 
+            }
+            }catch(IOException e){
+            }
+    }
     public void guardarNombreJ(String nombre1,int num0,int num1, int num2,int idJug){
         File archivo = new File("Nombre"+idJug+".txt");
         

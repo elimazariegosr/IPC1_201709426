@@ -31,15 +31,16 @@ import medievil_game.view.TableroView;
 public class Movimiento extends Thread {
     public int cantidad,dir,posicionx,posiciony,
             turnpersj1,turnpersj2,valormatriz,enturnoj1, enturnoj2;
-    public String xoy,orden1,orden2;
+    public String xoy,orden1,orden2,guardj1,guardj2;
     public Color color;
-    public int turno,numero,estado,turnovalidacion;
+    public int turno,numero,estado,turnovalidacion,vidasj1,vidasj2,validarganar;
     public Tablero tab = null;
     public ImageIcon nuevaimagen;
     public JPanel panelatacar,paneltimer;
     public JButton [] vecbtn;
     
     Personaje personaje = new Personaje();
+    Archivo arch = new Archivo();
     public Movimiento(){
     }
     public Movimiento(JPanel paneltimer){
@@ -55,6 +56,7 @@ public class Movimiento extends Thread {
         this.turnpersj1=turnpersj1;
         this.turnpersj2=turnpersj2;
         leerFile();
+        leerJugadores();
         
     
     }
@@ -354,6 +356,7 @@ public class Movimiento extends Thread {
     }
     
     public void validarVidas(int x, int y,int jug){
+        
         if(jug==1){
         
         switch (tab.matriz[y][x]) {
@@ -361,14 +364,18 @@ public class Movimiento extends Thread {
             case 3:
                 for(int i =9;i>=0;i--){
                     if(i==0){
-                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+jug);
-                     //   new TableroView().dispose();
+                        arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
+                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+2);
+                        new TableroView().setEnabled(false);
+                        new EmpezarJuego().setVisible(true);
+                        
                     }
                     if(tab.vecj1[i]==1){
                         tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
                         tab.vecvidasj1[i].setBackground(null);
                         tab.vecvidasj1[i].setText("");
                         tab.vecj1[i]=0;
+                        vidasj1=i;
                        return;
                     }
                 }
@@ -381,6 +388,7 @@ public class Movimiento extends Thread {
                         tab.vecvidasj1[i].setBackground(Color.RED);
                         tab.vecvidasj1[i].setText("+");
                         tab.vecj1[i]=1;
+                        vidasj1=i;
                        return;
                     }
                 }
@@ -393,14 +401,18 @@ public class Movimiento extends Thread {
             case 3:
                 for(int i =9;i>=0;i--){
                     if(i==0){
-                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+jug);
+                        arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
+                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+1);
                         new TableroView().dispose();
+                        new EmpezarJuego().setVisible(true);
+
                     }
                     if(tab.vecj2[i]==1){
                         tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
                         tab.vecvidasj2[i].setBackground(null);
                         tab.vecvidasj2[i].setText("");
                         tab.vecj2[i]=0;
+                        vidasj2=i;
                        return;
                     }
                 }
@@ -413,6 +425,7 @@ public class Movimiento extends Thread {
                         tab.vecvidasj2[i].setBackground(Color.RED);
                         tab.vecvidasj2[i].setText("+");
                         tab.vecj2[i]=1;
+                        vidasj2=i;
                        return;
                     }
                 }
@@ -422,20 +435,20 @@ public class Movimiento extends Thread {
         
     }
     public void quitarVidaSalir(int jug){
-       
+        if(jug==1){
+            validarganar=2;
+        }else if(jug==2){
+            validarganar=1;
+        }
         for(int i =9;i>=0;i--){
-            System.out.println("i: " + i);
            if(i==0){
-               if(turno==1){
-                   turno=2;
-               }else if(turno==2){
-                   turno=1;
-               }
-                JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+turno);
-                EmpezarJuego emp = new EmpezarJuego();
-               // new TableroView().dispose();
-                emp.setVisible(true);
-                
+               
+               arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
+               JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+validarganar);
+               
+                new TableroView().dispose();
+                new EmpezarJuego().setVisible(true);
+
            }
             switch(jug){
                 case 1:
@@ -461,13 +474,32 @@ public class Movimiento extends Thread {
         }
              
     }
+    public void leerJugadores(){
+        BufferedReader br1=null,br2=null;
+        try{
+            String j1,j2;
+            br1= new BufferedReader(new FileReader("Nombre1.txt"));
+            br2 = new BufferedReader(new FileReader("Nombre2.txt"));
+            while(( j1= br1.readLine()) !=null && ( j2= br1.readLine()) !=null){
+                guardj1=j1;
+                guardj2=j2;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (br1!= null )br1.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
     public void leerFile(){
        
-        BufferedReader br1=null,br2=null;
+        BufferedReader br1=null;
         try{
         String linea;
         br1 = new BufferedReader(new FileReader("ordenJ.txt"));
-        //br2 = new BufferedReader(new FileReader(""));  
         while((linea = br1.readLine()) !=null){
                 orden1=linea;
             }
@@ -504,14 +536,14 @@ public class Movimiento extends Thread {
                             }
                         }
                         if(posiciony +i < tab.tam){
-                           if(tab.matriz[posiciony +1][posicionx]==2){
+                           if(tab.matriz[posiciony +i][posicionx]==2){
                                 System.out.println("abajo");
                                 quitarVidaSalir(2);
                                 return;
                            }
                         }
                         if(posiciony -i >=0){
-                           if(tab.matriz[posiciony -1][posicionx]==2){
+                           if(tab.matriz[posiciony -i][posicionx]==2){
                                 System.out.println("arriba");
                                 quitarVidaSalir(2);
                                 return;
@@ -540,7 +572,7 @@ public class Movimiento extends Thread {
                             }
                         }
                         if(posiciony +i < tab.tam){
-                           if(tab.matriz[posiciony +1][posicionx]==2){
+                           if(tab.matriz[posiciony +i][posicionx]==2){
                                 System.out.println("abajo");
                                 quitarVidaSalir(2);
                                 quitarVidaSalir(2);
@@ -548,7 +580,7 @@ public class Movimiento extends Thread {
                            }
                         }
                         if(posiciony -i >=0){
-                           if(tab.matriz[posiciony -1][posicionx]==2){
+                           if(tab.matriz[posiciony -i][posicionx]==2){
                                 System.out.println("arriba");
                                 quitarVidaSalir(2);
                                 quitarVidaSalir(2);
@@ -610,14 +642,14 @@ public class Movimiento extends Thread {
                             }
                         }
                         if(posiciony +i < tab.tam){
-                           if(tab.matriz[posiciony +1][posicionx]==1){
+                           if(tab.matriz[posiciony +i][posicionx]==1){
                                 System.out.println("abajo");
                                 quitarVidaSalir(1);
                                 return;
                            }
                         }
                         if(posiciony -i >=0){
-                           if(tab.matriz[posiciony -1][posicionx]==1){
+                           if(tab.matriz[posiciony -i][posicionx]==1){
                                 System.out.println("arriba");
                                 quitarVidaSalir(1);
                                 return;
@@ -645,7 +677,7 @@ public class Movimiento extends Thread {
                             }
                         }
                         if(posiciony +i < tab.tam){
-                           if(tab.matriz[posiciony +1][posicionx]==1){
+                           if(tab.matriz[posiciony +i][posicionx]==1){
                                 System.out.println("abajo");
                                  quitarVidaSalir(1);
                                 quitarVidaSalir(1);
@@ -653,7 +685,7 @@ public class Movimiento extends Thread {
                            }
                         }
                         if(posiciony -i >=0){
-                           if(tab.matriz[posiciony -1][posicionx]==1){
+                           if(tab.matriz[posiciony -i][posicionx]==1){
                                 System.out.println("arriba");
                                 quitarVidaSalir(1);
                                 quitarVidaSalir(1);
@@ -692,4 +724,5 @@ public class Movimiento extends Thread {
             }
         }
     }
+    
 }
