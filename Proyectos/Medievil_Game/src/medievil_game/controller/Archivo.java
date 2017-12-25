@@ -37,8 +37,10 @@ public class Archivo {
         } catch (IOException e) {
         }
     }
+    
     public void guardarNombreJ(String nombre1,int num0,int num1, int num2,int idJug){
-        File archivo = new File("Nombres"+idJug+".txt");
+        File archivo = new File("Nombre"+idJug+".txt");
+        
         Personaje personaje = new Personaje();
         personaje.agregarPersonajes();
             if(archivo.exists()){
@@ -49,7 +51,6 @@ public class Archivo {
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.write("Nombre: "+ nombre1 + "\n");
-                pw.append("Orden de Personajes");
                 pw.append("1. " + personaje.nombre[num0] + "\n");
                 pw.append("2. " + personaje.nombre[num1] + "\n");
                 pw.append("3. " + personaje.nombre[num2] + "\n");

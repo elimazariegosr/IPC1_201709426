@@ -12,9 +12,12 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import medievil_game.model.Personaje;
@@ -30,18 +33,17 @@ public class Movimiento extends Thread {
             turnpersj1,turnpersj2,valormatriz,enturnoj1, enturnoj2;
     public String xoy,orden1,orden2;
     public Color color;
-    public int turno,numero,estado;
+    public int turno,numero,estado,turnovalidacion;
     public Tablero tab = null;
     public ImageIcon nuevaimagen;
-    public JPanel panelatacar;
+    public JPanel panelatacar,paneltimer;
     public JButton [] vecbtn;
     
     Personaje personaje = new Personaje();
     public Movimiento(){
     }
-    public Movimiento(JPanel panelatacar){
-        this.panelatacar=panelatacar;
-        
+    public Movimiento(JPanel paneltimer){
+        this.paneltimer=paneltimer;   
     }
     public Movimiento(int cantidad,Tablero tab,int dir,String xoy,int turno,
             int turnpersj1,int turnpersj2) {
@@ -56,9 +58,7 @@ public class Movimiento extends Thread {
         
     
     }
-    public void guardarOrden(int ord1,int ord2,int ord3,int ord4,int ord5,int ord6){
-        System.out.println(ord1+" "+ord2);
-    }
+    
     //vaidacion de turno de persnaje del jugador 2
     public void validarTurnoP2(){
          switch (turnpersj2) {
@@ -119,14 +119,14 @@ public class Movimiento extends Thread {
             validarTurnoP1();
             valormatriz=1;
             color=Color.YELLOW;
-             
+            turnovalidacion=2;
             posicionx=tab.posjugxj1;
             posiciony=tab.posjugyj1;
             System.out.println(numero);
         }else if(turno==2){
             valormatriz=2;
                 validarTurnoP2();
-            
+            turnovalidacion=1;
                  color=Color.GREEN;   
                 
             posicionx=tab.posjugxj2;
@@ -149,32 +149,96 @@ public class Movimiento extends Thread {
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
                         if(posiciony-1==-1 && dir==-1 ||posiciony+1==tab.tam && dir==1){
                             quitarVidaSalir(turno);
-                            tab.matrizlabel[posiciony][posicionx].setOpaque(false);
-                            tab.matrizlabel[posiciony][posicionx].setIcon(null);
-                            tab.matrizlabel[posiciony][posicionx].setBackground(null);
-                            validarVidas(tab.tam/2,tab.tam/2,turno);
-                            tab.matrizlabel[posiciony=tab.tam/2][posicionx=tab.tam/2]
-                                .setIcon(nuevaimagen);
-                            tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                             System.out.println("tva"+turnovalidacion);
+                            
+                            System.out.println("tva"+tab.matriz[posiciony/2][posicionx/2]);
+                           
+                            if(tab.matriz[tab.tam/2][tab.tam/2]==turnovalidacion){
+                                tab.matriz[posiciony][posicionx]=0;
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(false);
+                                tab.matrizlabel[posiciony][posicionx].setIcon(null);
+                                tab.matrizlabel[posiciony][posicionx].setBackground(null);
+                                validarVidas((tab.tam/2)+(1),tab.tam/2,turno);
+                                tab.matrizlabel[posiciony=(tab.tam/2)+1][posicionx=tab.tam/2]
+                                    .setIcon(nuevaimagen);
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
 
-                            tab.matrizlabel[posiciony][posicionx]
-                                .setBackground(color);
+                                tab.matrizlabel[posiciony][posicionx]
+                                    .setBackground(color);
+                                tab.matriz[posiciony][posicionx]=valormatriz;
+   
+                            }else{
+                                tab.matriz[posiciony][posicionx]=0;
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(false);
+                                tab.matrizlabel[posiciony][posicionx].setIcon(null);
+                                tab.matrizlabel[posiciony][posicionx].setBackground(null);
+                                validarVidas(tab.tam/2,tab.tam/2,turno);
+                                tab.matrizlabel[posiciony=tab.tam/2][posicionx=tab.tam/2]
+                                    .setIcon(nuevaimagen);
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
 
-                            tab.matriz[posiciony][posicionx]=0;
+                                tab.matrizlabel[posiciony][posicionx]
+                                    .setBackground(color);
+
+                            }    
                             guardarPosicion(posicionx,posiciony,turno);
+                            tab.matriz[posiciony][posicionx]=valormatriz;
+
                             return;
                         }else{
-                            validarVidas(posicionx,posiciony-(dir*(-1)),turno);
-                            tab.matrizlabel[posiciony-=dir*(-1)][posicionx].setIcon(nuevaimagen);
-                            tab.matrizlabel[posiciony][posicionx].setOpaque(true);
-                            tab.matrizlabel[posiciony][posicionx].setBackground(color);
+                            System.out.println("tva"+turnovalidacion);
+                            
+                            System.out.println("tva"+tab.matriz[posiciony-(dir*(-1))][posicionx]);
+                            
+                            if(tab.matriz[posiciony-(dir*(-1))][posicionx]==turnovalidacion){
+                                if(posicionx-(dir*(-1))<0 || (posicionx-(dir*(-1))>=tab.tam)){
+                                    
+                                    validarVidas(posicionx+(dir*(-1)),posiciony,turno);
+                                
+                                    tab.matrizlabel[posiciony][posicionx+=dir*(-1)].setIcon(nuevaimagen);
+                                    tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                    tab.matrizlabel[posiciony][posicionx].setBackground(color);
 
 
-                            tab.matrizlabel[posiciony+dir*(-1)][posicionx].setOpaque(false);
-                            tab.matriz[posiciony+dir*(-1)][posicionx]=0;
-                            tab.matrizlabel[posiciony+dir*(-1)][posicionx].setIcon(null);
-                            tab.matrizlabel[posiciony+dir*(-1)][posicionx].setBackground(null);
+                                    tab.matrizlabel[posiciony][posicionx-dir*(-1)].setOpaque(false);
+                                    tab.matriz[posiciony][posicionx-dir*(-1)]=0;
+                                    tab.matrizlabel[posiciony][posicionx-dir*(-1)].setIcon(null);
+                                    tab.matrizlabel[posiciony][posicionx-dir*(-1)].setBackground(null);
+                                    tab.matriz[posiciony][posicionx]=valormatriz;
+                                
+                                }else{
+                                    validarVidas(posicionx-(dir*(-1)),posiciony,turno);
 
+                                    tab.matrizlabel[posiciony][posicionx-=dir*(-1)].setIcon(nuevaimagen);
+                                    tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                    tab.matrizlabel[posiciony][posicionx].setBackground(color);
+
+
+                                    tab.matrizlabel[posiciony][posicionx+dir*(-1)].setOpaque(false);
+                                    tab.matriz[posiciony][posicionx+dir*(-1)]=0;
+                                    tab.matrizlabel[posiciony][posicionx+dir*(-1)].setIcon(null);
+                                    tab.matrizlabel[posiciony][posicionx+dir*(-1)].setBackground(null);
+                                    tab.matriz[posiciony][posicionx]=valormatriz;                                
+                                }
+                                
+                                
+                                
+                                    
+                            }else{
+                                validarVidas(posicionx,posiciony-(dir*(-1)),turno);
+
+                                tab.matrizlabel[posiciony-=dir*(-1)][posicionx].setIcon(nuevaimagen);
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                tab.matrizlabel[posiciony][posicionx].setBackground(color);
+
+
+                                tab.matrizlabel[posiciony+dir*(-1)][posicionx].setOpaque(false);
+                                tab.matriz[posiciony+dir*(-1)][posicionx]=0;
+                                tab.matrizlabel[posiciony+dir*(-1)][posicionx].setIcon(null);
+                                tab.matrizlabel[posiciony+dir*(-1)][posicionx].setBackground(null);
+                                tab.matriz[posiciony][posicionx]=valormatriz;
+
+                            }        
                             guardarPosicion(posicionx,posiciony,turno);
                         }
                         Thread.sleep(500);
@@ -188,32 +252,83 @@ public class Movimiento extends Thread {
                         tab.matrizlabel[posiciony][posicionx].setIcon(null);
                        
                         if(posicionx-1==-1  && dir==-1 || posicionx+1==tab.tam  && dir==1){
+                            tab.matriz[posiciony][posicionx]=0;
+                             System.out.println("tva"+turnovalidacion);
+                            
+                            System.out.println("tva"+tab.matriz[posiciony/2][posicionx/2]);
+                           
                             quitarVidaSalir(turno);
                             tab.matrizlabel[posiciony][posicionx].setOpaque(false);
                             tab.matrizlabel[posiciony][posicionx].setIcon(null);
                             tab.matrizlabel[posiciony][posicionx].setBackground(null);
-                            
-                            validarVidas(tab.tam/2,tab.tam/2,turno);
-                            tab.matrizlabel[posiciony=tab.tam/2][posicionx=tab.tam/2]
+                            if(tab.matriz[tab.tam/2][tab.tam/2]==turnovalidacion){
+                                validarVidas((tab.tam/2)-(-1),tab.tam/2,turno);
+                                tab.matrizlabel[posiciony=(tab.tam/2)-(-1)][posicionx=tab.tam/2]
+                                    .setIcon(nuevaimagen);
+
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                tab.matrizlabel[posiciony][posicionx]
+                                    .setBackground(color);
+                                tab.matriz[posiciony][posicionx]=valormatriz;
+
+                            }else{
+                                validarVidas(tab.tam/2,tab.tam/2,turno);
+                                tab.matrizlabel[posiciony=tab.tam/2][posicionx=tab.tam/2]
                                 .setIcon(nuevaimagen);
                             
-                            tab.matrizlabel[posiciony][posicionx].setOpaque(true);
-                            tab.matrizlabel[posiciony][posicionx]
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                tab.matrizlabel[posiciony][posicionx]
                                 .setBackground(color);
-                            
-                           
-                            tab.matriz[posiciony][posicionx]=0;
+                                tab.matriz[posiciony][posicionx]=valormatriz;
+
+                            }
                              guardarPosicion(posicionx,posiciony,turno);
                             return;
                         }else{ 
-                            validarVidas(posicionx-(dir*(-1)),posiciony,turno);
-                            tab.matrizlabel[posiciony][posicionx-=dir*(-1)].setIcon(nuevaimagen);
-                            tab.matrizlabel[posiciony][posicionx].setOpaque(true);
-                            tab.matrizlabel[posiciony][posicionx].setBackground(color);
-                            tab.matriz[posiciony][posicionx+dir*(-1)]=0;
-                            tab.matrizlabel[posiciony][posicionx+dir*(-1)].setOpaque(false);
-                            tab.matrizlabel[posiciony][posicionx+dir*(-1)].setIcon(null);
-                            tab.matrizlabel[posiciony][posicionx+dir*(-1)].setBackground(null);
+                             System.out.println("tva"+turnovalidacion);
+                            
+                            System.out.println("tva"+tab.matriz[posiciony][posicionx-(dir*(-1))]);
+                           
+                            if(tab.matriz[posiciony][posicionx-(dir*(-1))]==turnovalidacion){
+                                if(posiciony-(dir*(-1))<0 || posiciony-(dir*(-1))>=tab.tam){
+                                
+                                    validarVidas(posicionx,posiciony+(dir*(-1)),turno);
+                                    tab.matrizlabel[posiciony+=dir*(-1)][posicionx].setIcon(nuevaimagen);
+                                    tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                    tab.matrizlabel[posiciony][posicionx].setBackground(color);
+                                    tab.matriz[posiciony-dir*(-1)][posicionx]=0;
+                                    tab.matrizlabel[posiciony-dir*(-1)][posicionx].setOpaque(false);
+                                    tab.matrizlabel[posiciony-dir*(-1)][posicionx].setIcon(null);
+                                    tab.matrizlabel[posiciony-dir*(-1)][posicionx].setBackground(null);
+                                    tab.matriz[posiciony][posicionx]=valormatriz;
+                                    
+                                }else{
+                                    validarVidas(posicionx,posiciony-(dir*(-1)),turno);
+
+                                    tab.matrizlabel[posiciony-=dir*(-1)][posicionx].setIcon(nuevaimagen);
+                                    tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                    tab.matrizlabel[posiciony][posicionx].setBackground(color);
+                                    tab.matriz[posiciony+dir*(-1)][posicionx]=0;
+                                    tab.matrizlabel[posiciony+dir*(-1)][posicionx].setOpaque(false);
+                                    tab.matrizlabel[posiciony+dir*(-1)][posicionx].setIcon(null);
+                                    tab.matrizlabel[posiciony+dir*(-1)][posicionx].setBackground(null);
+                                    tab.matriz[posiciony][posicionx]=valormatriz;
+                                                    
+                                }
+                                
+                            }else{
+                                validarVidas(posicionx-(dir*(-1)),posiciony,turno);
+
+                                tab.matrizlabel[posiciony][posicionx-=dir*(-1)].setIcon(nuevaimagen);
+                                tab.matrizlabel[posiciony][posicionx].setOpaque(true);
+                                tab.matrizlabel[posiciony][posicionx].setBackground(color);
+                                tab.matriz[posiciony][posicionx+dir*(-1)]=0;
+                                tab.matrizlabel[posiciony][posicionx+dir*(-1)].setOpaque(false);
+                                tab.matrizlabel[posiciony][posicionx+dir*(-1)].setIcon(null);
+                                tab.matrizlabel[posiciony][posicionx+dir*(-1)].setBackground(null);
+                                tab.matriz[posiciony][posicionx]=valormatriz;
+                        
+                            }
                             
                            guardarPosicion(posicionx,posiciony,turno);
                         }
@@ -240,12 +355,15 @@ public class Movimiento extends Thread {
     
     public void validarVidas(int x, int y,int jug){
         if(jug==1){
-
+        
         switch (tab.matriz[y][x]) {
             //quitar vidas
             case 3:
-                for(int i =9;i>0;i--){
-                    System.out.println("i: " + i);
+                for(int i =9;i>=0;i--){
+                    if(i==0){
+                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+jug);
+                     //   new TableroView().dispose();
+                    }
                     if(tab.vecj1[i]==1){
                         tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
                         tab.vecvidasj1[i].setBackground(null);
@@ -273,8 +391,11 @@ public class Movimiento extends Thread {
         switch (tab.matriz[y][x]) {
             //quitar vidas
             case 3:
-                for(int i =9;i>0;i--){
-                    System.out.println("i: " + i);
+                for(int i =9;i>=0;i--){
+                    if(i==0){
+                        JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+jug);
+                        new TableroView().dispose();
+                    }
                     if(tab.vecj2[i]==1){
                         tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
                         tab.vecvidasj2[i].setBackground(null);
@@ -312,8 +433,7 @@ public class Movimiento extends Thread {
                }
                 JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+turno);
                 EmpezarJuego emp = new EmpezarJuego();
-                TableroView tv = new TableroView();
-                tv.cerrar();
+               // new TableroView().dispose();
                 emp.setVisible(true);
                 
            }
@@ -521,14 +641,16 @@ public class Movimiento extends Thread {
                                 System.out.println("izquierda");
                                 quitarVidaSalir(1);
                                 quitarVidaSalir(1);
-                                return;                            }
+                                return;  
+                            }
                         }
                         if(posiciony +i < tab.tam){
                            if(tab.matriz[posiciony +1][posicionx]==1){
                                 System.out.println("abajo");
                                  quitarVidaSalir(1);
                                 quitarVidaSalir(1);
-                                return;                          }
+                                return;                 
+                           }
                         }
                         if(posiciony -i >=0){
                            if(tab.matriz[posiciony -1][posicionx]==1){

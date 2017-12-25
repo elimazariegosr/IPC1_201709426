@@ -21,17 +21,17 @@ public class Tablero {
     /**
      *
      */
-    public int tam=10;
-    public JPanel fondo,fondovidaj1,fondovidaj2;
+    public int tam;
+    public JPanel fondo,fondovidaj1,fondovidaj2,paneltimer;
     public ImageIcon mago,guerrero,princesa,bomba,vida,inipersj1,inipersj2;
     public int tamcuadrox=0, tamcuadroy=0, posjugxj1,posjugyj1,posjugxj2,posjugyj2;
     public int [][] matriz;
     public int [] vecj1,vecj2;
     public JLabel [][] matrizlabel;
     public JLabel [] vecvidasj1, vecvidasj2;
-    public JLabel lblvidaj1,lblvidaj2;
+    public JLabel lblvidaj1,lblvidaj2,lbltimer;
     
-    public String nombre1,inipersonaje;
+    public String nombre1,inipersonaje,tamnuevo;
     Personaje personaje = new Personaje();
     
     
@@ -48,6 +48,8 @@ public class Tablero {
         llenar(tam);
         llenarvidas();
     }
+        
+    
     public void llenarvidas(){
         
         vecj1 = new int[10];
@@ -272,22 +274,24 @@ public class Tablero {
             }
         }
     }
-       public void leerFile(){
-       System.out.println("leyendo");
+     public void leerFile(){
          BufferedReader br1=null,br2=null;
       
        try{
-           String stri;
+           String stri,tamnew;
+           
         br1 = new BufferedReader(new FileReader("ordenJ.txt"));
-        //br2 = new BufferedReader(new FileReader(""));  
-        while((stri = br1.readLine()) !=null){
+        br2 = new BufferedReader(new FileReader("Tamaño.txt"));  
+        while((stri = br1.readLine()) !=null && (tamnew=br2.readLine())!=null){
                 inipersonaje=stri;
+                tam=Integer.parseInt(tamnew);
             }
         }catch(IOException e){
             e.printStackTrace();
         }finally{
             try{
                 if (br1!= null )br1.close();
+                if (br2!= null )br2.close();
             }catch(IOException e){
                 e.printStackTrace();
             }
