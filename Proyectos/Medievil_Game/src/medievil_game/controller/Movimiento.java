@@ -440,6 +440,30 @@ public class Movimiento extends Thread {
                 //ataque para princesa j1    
                 case 2:
                     System.out.println("ataca princesa");
+                    if(posicionx - 1 >=0){
+                        if(tab.matriz[posiciony][posicionx-1]==2){
+                            quitarVidaSalir(2);
+                            turno=1;
+                        }
+                    }
+                    if(posicionx + 1 < tab.tam){
+                        if(tab.matriz[posiciony][posicionx+1]==2){
+                            quitarVidaSalir(2);
+                            turno=1;
+                        }
+                    }
+                    if(posiciony - 1>=0){
+                        if(tab.matriz[posiciony-1][posicionx]==2){
+                            quitarVidaSalir(2);
+                            turno=1;
+                        }
+                    }
+                    if(posiciony +1 < tab.tam){
+                        if(tab.matriz[posiciony+1][posicionx]==2){
+                            quitarVidaSalir(2);
+                            turno=1;
+                        }
+                    }
                 break;
             }
         }
@@ -518,6 +542,30 @@ public class Movimiento extends Thread {
                 break;
                 case 2:
                     System.out.println("ataca princesa");
+                    if(posicionx - 1 >=0){
+                        if(tab.matriz[posiciony][posicionx-1]==1){
+                            quitarVidaSalir(1);
+                            turno=2;
+                        }
+                    }
+                    if(posicionx + 1 < tab.tam){
+                        if(tab.matriz[posiciony][posicionx+1]==1){
+                            quitarVidaSalir(1);
+                            turno=2;
+                        }
+                    }
+                    if(posiciony - 1>=0){
+                        if(tab.matriz[posiciony-1][posicionx]==1){
+                            quitarVidaSalir(1);
+                            turno=2;
+                        }
+                    }
+                    if(posiciony +1 < tab.tam){
+                        if(tab.matriz[posiciony+1][posicionx]==1){
+                            quitarVidaSalir(1);
+                            turno=2;
+                        }
+                    }                    
                 break;
             }
         }
