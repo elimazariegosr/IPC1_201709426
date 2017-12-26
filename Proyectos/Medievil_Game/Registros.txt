@@ -1,1 +1,3 @@
-0, 2. princesa, 100, 3. guerrero, 10
+Nombre: Eli Sa  Oden: 1. mago 2. guerrero 3. princesa
+Nombre: MUel  Oden: 1. mago 2. guerrero 3. princesa
+Nombre: MUel  Oden: 1. mago 2. guerrero 3. princesa

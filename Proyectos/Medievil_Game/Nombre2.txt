@@ -1,4 +1,4 @@
-Nombre: SAMUEL
-1. guerrero
-2. mago
+Nombre: MUel
+1. mago
+2. guerrero
 3. princesa

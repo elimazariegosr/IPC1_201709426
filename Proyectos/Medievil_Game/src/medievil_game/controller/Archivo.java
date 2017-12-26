@@ -8,6 +8,7 @@ package medievil_game.controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +18,7 @@ import medievil_game.model.Personaje;
  *
  */
 public class Archivo {
-
+    String cadenaNueva;
     public Archivo() {
     }
  
@@ -37,30 +38,31 @@ public class Archivo {
         } catch (IOException e) {
         }
     }
-    public void guardarTodo(String jug1, String jug2, int vidasj1,int vidasj2, int tiempo){
+    public void guardarTodo(String jug1, String jug2){
         File archivo = new File("Registros.txt");
-        
         try{
-                
+              String datos;  
              if(archivo.exists()){
                 FileWriter fw = new FileWriter(archivo);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.append(vidasj1 + ", " + jug1 + ", "+tiempo);
-                pw.append(vidasj2 + ", " + jug2 + ", "+tiempo);
-                pw.append("");
- 
+                
+                bw= new BufferedWriter(new FileWriter(archivo));
+                pw.write(bw + "\n");
+                pw.append(jug1 + "\n");
+                pw.append(jug2);
+              
                 pw.close();
                 bw.close();
+                bw.close();
+                
  
              }else{
                 FileWriter fw = new FileWriter(archivo);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.write(vidasj1 + ", " + jug1 + ", "+tiempo);
-                pw.append(vidasj2 + ", " + jug2 + ", "+tiempo);
-                pw.append("");
- 
+                pw.write(jug1 + "\n");
+                pw.append(jug2 + "\n");
                 pw.close();
                 bw.close();
  

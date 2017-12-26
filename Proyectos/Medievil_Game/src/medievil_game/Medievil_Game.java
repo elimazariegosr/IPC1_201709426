@@ -18,10 +18,12 @@ public class Medievil_Game {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        EmpezarJuego ejuego = new EmpezarJuego();
-       ejuego.setVisible(true);
+        //EmpezarJuego ejuego = new EmpezarJuego();
+        //ejuego.setVisible(true);
        //TableroView tab = new TableroView();
        //tab.setVisible(true);
+       MenuPrincipal mp = new MenuPrincipal();
+       mp.setVisible(true);
     }
     
 }

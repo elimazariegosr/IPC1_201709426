@@ -364,11 +364,8 @@ public class Movimiento extends Thread {
             case 3:
                 for(int i =9;i>=0;i--){
                     if(i==0){
-                        arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
                         JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+2);
-                        new TableroView().setEnabled(false);
-                        new EmpezarJuego().setVisible(true);
-                        
+                        return;
                     }
                     if(tab.vecj1[i]==1){
                         tab.vecvidasj1[i].setBounds(i*20, 0, 15, 15);
@@ -401,11 +398,8 @@ public class Movimiento extends Thread {
             case 3:
                 for(int i =9;i>=0;i--){
                     if(i==0){
-                        arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
                         JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+1);
-                        new TableroView().dispose();
-                        new EmpezarJuego().setVisible(true);
-
+                        return;
                     }
                     if(tab.vecj2[i]==1){
                         tab.vecvidasj2[i].setBounds(i*20, 0, 15, 15);
@@ -443,12 +437,9 @@ public class Movimiento extends Thread {
         for(int i =9;i>=0;i--){
            if(i==0){
                
-               arch.guardarTodo(guardj1, guardj2, vidasj1, vidasj2, 10);
                JOptionPane.showMessageDialog(null, "HA GANDO EL JUGADOR "+validarganar);
+               return;
                
-                new TableroView().dispose();
-                new EmpezarJuego().setVisible(true);
-
            }
             switch(jug){
                 case 1:
