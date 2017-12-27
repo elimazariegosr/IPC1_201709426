@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Medievil_Game">
+  <ClassDiagramComponents>
+    <Class name="Archivo" package="medievil_game.controller" visibility="public" xPosition="1728.0" yPosition="434.0">
+      <Fields>
+        <Field name="cadenaNueva" type="String" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="ordenJ" returnType="void" visibility="public">
+          <Argument type="String" name="pri"/>
+          <Argument type="String" name="sec"/>
+          <Argument type="String" name="ter"/>
+          <Argument type="String" name="cua"/>
+          <Argument type="String" name="qui"/>
+          <Argument type="String" name="sex"/>
+        </Method>
+        <Method name="guardarTodo" returnType="void" visibility="public">
+          <Argument type="String" name="jug1"/>
+          <Argument type="String" name="jug2"/>
+        </Method>
+        <Method name="guardarNombreJ" returnType="void" visibility="public">
+          <Argument type="String" name="nombre1"/>
+          <Argument type="int" name="num0"/>
+          <Argument type="int" name="num1"/>
+          <Argument type="int" name="num2"/>
+          <Argument type="int" name="idJug"/>
+        </Method>
+        <Method name="guardarTam" returnType="void" visibility="public">
+          <Argument type="String" name="tamx"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Movimiento" package="medievil_game.controller" visibility="public" xPosition="1070.0" yPosition="59.0">
+      <Fields>
+        <Field name="cantidad" type="int" visibility="public"/>
+        <Field name="xoy" type="String" visibility="public"/>
+        <Field name="color" type="Color" visibility="public"/>
+        <Field name="turno" type="int" visibility="public"/>
+        <Field name="tab" type="Tablero" visibility="public"/>
+        <Field name="nuevaimagen" type="ImageIcon" visibility="public"/>
+        <Field name="panelatacar" type="JPanel" visibility="public"/>
+        <Field name="vecbtn" type="JButton[]" visibility="public"/>
+        <Field name="personaje" type="Personaje" visibility="package"/>
+        <Field name="arch" type="Archivo" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="JPanel" name="paneltimer"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="int" name="cantidad"/>
+          <Argument type="Tablero" name="tab"/>
+          <Argument type="int" name="dir"/>
+          <Argument type="String" name="xoy"/>
+          <Argument type="int" name="turno"/>
+          <Argument type="int" name="turnpersj1"/>
+          <Argument type="int" name="turnpersj2"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="validarTurnoP2" returnType="void" visibility="public"/>
+        <Method name="validarTurnoP1" returnType="void" visibility="public"/>
+        <Method name="mover" returnType="void" visibility="public">
+          <Argument type="int" name="cantidad"/>
+          <Argument type="int" name="dir"/>
+          <Argument type="String" name="xoy"/>
+          <Argument type="int" name="turno"/>
+        </Method>
+        <Method name="guardarPosicion" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="turno"/>
+        </Method>
+        <Method name="run" returnType="void" visibility="public"/>
+        <Method name="validarVidas" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+          <Argument type="int" name="jug"/>
+        </Method>
+        <Method name="quitarVidaSalir" returnType="void" visibility="public">
+          <Argument type="int" name="jug"/>
+        </Method>
+        <Method name="leerJugadores" returnType="void" visibility="public"/>
+        <Method name="leerFile" returnType="void" visibility="public"/>
+        <Method name="atacarJ1" returnType="void" visibility="public"/>
+        <Method name="atacarJ2" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Tablero" package="medievil_game.controller" visibility="public" xPosition="205.0" yPosition="41.0">
+      <Fields>
+        <Field name="tam" type="int" visibility="public"/>
+        <Field name="fondo" type="JPanel" visibility="public"/>
+        <Field name="mago" type="ImageIcon" visibility="public"/>
+        <Field name="tamcuadrox" type="int" visibility="public"/>
+        <Field name="matriz" type="int[][]" visibility="public"/>
+        <Field name="vecj1" type="int[]" visibility="public"/>
+        <Field name="matrizlabel" type="JLabel[][]" visibility="public"/>
+        <Field name="vecvidasj1" type="JLabel[]" visibility="public"/>
+        <Field name="lblvidaj1" type="JLabel" visibility="public"/>
+        <Field name="nombre1" type="String" visibility="public"/>
+        <Field name="personaje" type="Personaje" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="JPanel" name="fondo"/>
+          <Argument type="JPanel" name="fondovidaj1"/>
+          <Argument type="JPanel" name="fondovidaj2"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="llenarvidas" returnType="void" visibility="public"/>
+        <Method name="repintarvidasj1" returnType="void" visibility="public"/>
+        <Method name="repintarvidasj2" returnType="void" visibility="public"/>
+        <Method name="llenar" returnType="void" visibility="public">
+          <Argument type="int" name="tam"/>
+        </Method>
+        <Method name="repintar" returnType="void" visibility="public"/>
+        <Method name="agregarBombaLogica" returnType="void" visibility="public"/>
+        <Method name="agregarVidaLogica" returnType="void" visibility="public"/>
+        <Method name="leerFile" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Tiempo" package="medievil_game.controller" visibility="public" xPosition="1779.0" yPosition="855.0">
+      <Fields>
+        <Field name="tabview" type="TableroView" visibility="private"/>
+        <Field name="segundos" type="int" visibility="private"/>
+        <Field name="minutos" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="TableroView" name="tabview"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="run" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Medievil_Game" package="medievil_game" visibility="public" xPosition="388.0" yPosition="1417.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Jugador" package="medievil_game.model" visibility="public" xPosition="2188.0" yPosition="1220.0">
+      <Fields>
+        <Field name="nombre" type="String[]" visibility="public"/>
+        <Field name="turno" type="int[]" visibility="public"/>
+        <Field name="tam" type="int[]" visibility="public"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarJugador" returnType="void" visibility="public">
+          <Argument type="String" name="nombre1"/>
+          <Argument type="String" name="nombre2"/>
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Personaje" package="medievil_game.model" visibility="public" xPosition="2090.0" yPosition="25.0">
+      <Fields>
+        <Field name="nombre" type="String[]" visibility="public"/>
+        <Field name="alcance" type="int[]" visibility="public"/>
+        <Field name="poder" type="int[]" visibility="public"/>
+        <Field name="orden" type="int[]" visibility="public"/>
+        <Field name="imagen" type="ImageIcon[]" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String[]" name="nombre"/>
+          <Argument type="int[]" name="alcance"/>
+          <Argument type="int[]" name="poder"/>
+          <Argument type="ImageIcon[]" name="imagen"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="agregarPersonajes" returnType="void" visibility="public"/>
+        <Method name="agregarOrden" returnType="void" visibility="public">
+          <Argument type="int" name="primero"/>
+          <Argument type="int" name="segundo"/>
+          <Argument type="int" name="tercero"/>
+          <Argument type="int" name="cuarto"/>
+          <Argument type="int" name="quinto"/>
+          <Argument type="int" name="sexto"/>
+        </Method>
+        <Method name="agregarImagenes" returnType="void" visibility="public">
+          <Argument type="int" name="x"/>
+          <Argument type="int" name="y"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="EmpezarJuego" package="medievil_game.view" visibility="public" xPosition="2419.0" yPosition="349.0">
+      <Fields>
+        <Field name="personaje" type="Personaje" visibility="package"/>
+        <Field name="arch" type="Archivo" visibility="package"/>
+        <Field name="btnRegresar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnguerrero2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnguerrero5" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btniniciar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnmago1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnmago4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnprincesa3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnprincesa6" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="lbl6" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="txtenx" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txteny" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtjugador1" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="txtjugador2" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="btnprincesa3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnprincesa6ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnmago1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnguerrero2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btniniciarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnmago4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnguerrero5ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnRegresarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="validarJugador1" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="validarJugador2" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Historial" package="medievil_game.view" visibility="public" xPosition="-14.0" yPosition="1101.0">
+      <Fields>
+        <Field name="btnRegresar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jTable1" type="javax.swing.JTable" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="btnRegresarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="mostrarRecords" returnType="void" visibility="public"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="MenuPrincipal" package="medievil_game.view" visibility="public" xPosition="2763.0" yPosition="1284.0">
+      <Fields>
+        <Field name="begingame" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSalir" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="viewRecord" type="javax.swing.JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="begingameActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="viewRecordActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnSalirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TableroView" package="medievil_game.view" visibility="public" xPosition="1013.0" yPosition="724.0">
+      <Fields>
+        <Field name="segundos" type="int" visibility="private"/>
+        <Field name="numrandom" type="int" visibility="private"/>
+        <Field name="continuar" type="boolean" visibility="private"/>
+        <Field name="tim" type="Tiempo" visibility="private"/>
+        <Field name="tab" type="Tablero" visibility="public"/>
+        <Field name="atac" type="Movimiento" visibility="public"/>
+        <Field name="tablerocreado" type="boolean" visibility="public"/>
+        <Field name="tamanio" type="int" visibility="public"/>
+        <Field name="lblImagen" type="JLabel" visibility="public"/>
+        <Field name="imagenvida" type="ImageIcon" visibility="public"/>
+        <Field name="emj" type="EmpezarJuego" visibility="package"/>
+        <Field name="arch" type="Archivo" visibility="package"/>
+        <Field name="ruta" type="String" visibility="private" isFinal="true"/>
+        <Field name="turn" type="boolean" visibility="package"/>
+        <Field name="turnpers1" type="int" visibility="package"/>
+        <Field name="btmIzquierda" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnAbajo" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnArriba" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnDerecha" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnSalir" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btnatacar" type="javax.swing.JButton" visibility="private"/>
+        <Field name="btntirardado" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jScrollPane1" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jScrollPane3" type="javax.swing.JScrollPane" visibility="private"/>
+        <Field name="jTable1" type="javax.swing.JTable" visibility="private"/>
+        <Field name="jTable2" type="javax.swing.JTable" visibility="private"/>
+        <Field name="lbljugador1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="numero" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="panel" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="paneldatos" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="panelvidasj1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="panelvidj2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="txtmi" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="txtse" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="aleatorio" returnType="// poner el numero aleatorio de 1 a 6 i poner un gif     void" visibility="public"/>
+        <Method name="aumentarS" returnType="int" visibility="public" isSynchronized="true"/>
+        <Method name="aumentarM" returnType="int" visibility="public" isSynchronized="true"/>
+        <Method name="getSegundos" returnType="int" visibility="public" isSynchronized="true"/>
+        <Method name="getMinutos" returnType="int" visibility="public" isSynchronized="true"/>
+        <Method name="seguir" returnType="void" visibility="public" isSynchronized="true"/>
+        <Method name="borrarS" returnType="void" visibility="public"/>
+        <Method name="borrarM" returnType="void" visibility="public"/>
+        <Method name="botones" returnType="void" visibility="public">
+          <Argument type="boolean" name="des"/>
+        </Method>
+        <Method name="obtenerDatos" returnType="void" visibility="public"/>
+        <Method name="leerFile" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="leerFileJ2" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+        </Method>
+        <Method name="initComponents" returnType="void" visibility="private"/>
+        <Method name="btnAbajoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnArribaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btmIzquierdaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnDerechaActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="lbljugador1InputMethodTextChanged" returnType="void" visibility="private">
+          <Argument type="java.awt.event.InputMethodEvent" name="evt"/>
+        </Method>
+        <Method name="btntirardadoActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="btnatacarActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="formMouseExited" returnType="void" visibility="private">
+          <Argument type="java.awt.event.MouseEvent" name="evt"/>
+        </Method>
+        <Method name="btnSalirActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="cerrar" returnType="void" visibility="public"/>
+        <Method name="turno" returnType="void" visibility="public">
+          <Argument type="int" name="numero"/>
+          <Argument type="Tablero" name="tab"/>
+          <Argument type="int" name="mov"/>
+          <Argument type="String" name="dir"/>
+          <Argument type="int" name="jug"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+        <Method name="run" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="tabview" source="medievil_game.controller.Tiempo" target="medievil_game.view.TableroView" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tim" source="medievil_game.view.TableroView" target="medievil_game.controller.Tiempo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="atac" source="medievil_game.view.TableroView" target="medievil_game.controller.Movimiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personaje" source="medievil_game.view.EmpezarJuego" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="emj" source="medievil_game.view.TableroView" target="medievil_game.view.EmpezarJuego" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arch" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="medievil_game.view.TableroView" target="medievil_game.controller.Tablero" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arch" source="medievil_game.view.EmpezarJuego" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tab" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tab" source="medievil_game.view.TableroView" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arch" source="medievil_game.view.TableroView" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personaje" source="medievil_game.controller.Movimiento" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personaje" source="medievil_game.controller.Tablero" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

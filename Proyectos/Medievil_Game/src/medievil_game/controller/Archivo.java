@@ -12,13 +12,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.swing.table.DefaultTableModel;
 import medievil_game.model.Personaje;
 
 /**
  *
  */
 public class Archivo {
-    String cadenaNueva;
+    String cadenaNueva[]= new String[100];
+    int numCadena;
     public Archivo() {
     }
  
@@ -38,17 +40,48 @@ public class Archivo {
         } catch (IOException e) {
         }
     }
+    public void leerTodo(){
+         File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+        
+        try{
+        archivo = new File("Registros.txt");    
+        
+        fr= new FileReader(archivo);
+        br= new BufferedReader(fr);
+        String linea;
+        while((linea=br.readLine())!=null){
+            cadenaNueva[numCadena]=linea;
+            numCadena++;
+         } 
+        }catch(IOException e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (fr!= null )fr.close();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
     public void guardarTodo(String jug1, String jug2){
+        System.out.println(cadenaNueva);
         File archivo = new File("Registros.txt");
         try{
               String datos;  
              if(archivo.exists()){
+                leerTodo();
                 FileWriter fw = new FileWriter(archivo);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
                 
-                bw= new BufferedWriter(new FileWriter(archivo));
-                pw.write(bw + "\n");
+                BufferedWriter bw = new BufferedWriter(fw);
+                
+                PrintWriter pw = new PrintWriter(bw);
+                for(int i =0; i<numCadena;i++){
+                    pw.append(cadenaNueva[i] + "\n");
+                }
+                
                 pw.append(jug1 + "\n");
                 pw.append(jug2);
               

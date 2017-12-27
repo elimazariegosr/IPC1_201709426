@@ -19,6 +19,7 @@ public class Historial extends javax.swing.JFrame {
      */
     public Historial() {
         initComponents();
+        setLocationRelativeTo(null);
         mostrarRecords();
     }
 

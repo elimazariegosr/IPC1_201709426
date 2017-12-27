@@ -50,6 +50,8 @@ public class TableroView extends javax.swing.JFrame implements Runnable {
     Archivo arch = new Archivo();
     public TableroView() {
         initComponents();
+        setLocationRelativeTo(null);
+
         panel.removeAll();
         lblImagen = new JLabel();
         lblImagen.setBounds(10, 20, 630, 630);

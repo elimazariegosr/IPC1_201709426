@@ -23,6 +23,7 @@ public class EmpezarJuego extends javax.swing.JFrame {
      */
     public EmpezarJuego() {
         initComponents();
+        setLocationRelativeTo(null);
         personaje.agregarImagenes(75, 75);
 
         
