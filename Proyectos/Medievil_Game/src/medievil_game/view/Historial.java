@@ -106,18 +106,20 @@ public class Historial extends javax.swing.JFrame {
         
         try{
         archivo = new File("Registros.txt");    
+        if(archivo.exists()){
+            fr= new FileReader(archivo);
+            br= new BufferedReader(fr);
+            String linea;
         
-        fr= new FileReader(archivo);
-        br= new BufferedReader(fr);
-        String linea;
+            DefaultTableModel model_tabla = new DefaultTableModel();
+
+            model_tabla.addColumn("TODOS LOS REGISTROS");
+           while((linea=br.readLine())!=null){
+                model_tabla.addRow(new String[]{linea});
+              jTable1.setModel(model_tabla);
+             } 
         
-        DefaultTableModel model_tabla = new DefaultTableModel();
-      
-        model_tabla.addColumn("TODOS LOS REGISTROS");
-       while((linea=br.readLine())!=null){
-            model_tabla.addRow(new String[]{linea});
-          jTable1.setModel(model_tabla);
-         } 
+        }
         }catch(IOException e){
             e.printStackTrace();
         }finally{

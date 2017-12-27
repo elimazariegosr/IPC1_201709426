@@ -165,11 +165,14 @@ public class TableroView extends javax.swing.JFrame implements Runnable {
     }
     private final String ruta = System.getProperties().getProperty("user.dir");
     public void obtenerDatos(){
+        String cadenaTiempo;
         String cadenaj1 =jTable1.getValueAt(0, 0) + "  Oden: " + jTable1.getValueAt(1, 0) +
                 " " + jTable1.getValueAt(2, 0) + " " + jTable1.getValueAt(3, 0);
         String cadenaj2 =jTable2.getValueAt(0, 0) + "  Oden: " + jTable2.getValueAt(1, 0) +
                 " " + jTable2.getValueAt(2, 0) + " " + jTable2.getValueAt(3, 0);
-        arch.guardarTodo(cadenaj1,cadenaj2);
+        cadenaTiempo= "Tiempo " + txtmi.getText() + 
+                ":" + txtse.getText() + "s";
+        arch.guardarTodo(cadenaj1,cadenaj2,cadenaTiempo);
     }
     public void leerFile(int numero){
         File archivo =null;
@@ -313,10 +316,10 @@ public class TableroView extends javax.swing.JFrame implements Runnable {
 
         lbljugador1.setText(".");
         lbljugador1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 lbljugador1InputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 

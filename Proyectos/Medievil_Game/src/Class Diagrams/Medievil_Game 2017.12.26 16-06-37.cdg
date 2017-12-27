@@ -266,7 +266,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Historial" package="medievil_game.view" visibility="public" xPosition="-14.0" yPosition="1101.0">
+    <Class name="Historial" package="medievil_game.view" visibility="public" xPosition="37.0" yPosition="919.0">
       <Fields>
         <Field name="btnRegresar" type="javax.swing.JButton" visibility="private"/>
         <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
@@ -313,7 +313,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="TableroView" package="medievil_game.view" visibility="public" xPosition="1013.0" yPosition="724.0">
+    <Class name="TableroView" package="medievil_game.view" visibility="public" xPosition="1022.0" yPosition="308.0">
       <Fields>
         <Field name="segundos" type="int" visibility="private"/>
         <Field name="numrandom" type="int" visibility="private"/>
@@ -418,18 +418,18 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="tabview" source="medievil_game.controller.Tiempo" target="medievil_game.view.TableroView" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tim" source="medievil_game.view.TableroView" target="medievil_game.controller.Tiempo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="atac" source="medievil_game.view.TableroView" target="medievil_game.controller.Movimiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="personaje" source="medievil_game.view.EmpezarJuego" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="emj" source="medievil_game.view.TableroView" target="medievil_game.view.EmpezarJuego" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="arch" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="medievil_game.view.TableroView" target="medievil_game.controller.Tablero" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="arch" source="medievil_game.view.EmpezarJuego" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tab" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="tab" source="medievil_game.view.TableroView" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="arch" source="medievil_game.view.TableroView" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="personaje" source="medievil_game.controller.Movimiento" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="emj" source="medievil_game.view.TableroView" target="medievil_game.view.EmpezarJuego" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="personaje" source="medievil_game.view.EmpezarJuego" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tab" source="medievil_game.view.TableroView" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arch" source="medievil_game.view.EmpezarJuego" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tab" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Tablero" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tabview" source="medievil_game.controller.Tiempo" target="medievil_game.view.TableroView" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="atac" source="medievil_game.view.TableroView" target="medievil_game.controller.Movimiento" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tim" source="medievil_game.view.TableroView" target="medievil_game.controller.Tiempo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="personaje" source="medievil_game.controller.Tablero" target="medievil_game.model.Personaje" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="arch" source="medievil_game.controller.Movimiento" target="medievil_game.controller.Archivo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

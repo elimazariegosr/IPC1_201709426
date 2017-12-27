@@ -66,7 +66,7 @@ public class Archivo {
         }
 
     }
-    public void guardarTodo(String jug1, String jug2){
+    public void guardarTodo(String jug1, String jug2,String tiempo){
         System.out.println(cadenaNueva);
         File archivo = new File("Registros.txt");
         try{
@@ -82,8 +82,8 @@ public class Archivo {
                     pw.append(cadenaNueva[i] + "\n");
                 }
                 
-                pw.append(jug1 + "\n");
-                pw.append(jug2);
+                pw.append(jug1 + " | "+ tiempo + "\n");
+                pw.append(jug2 + " | "+ tiempo );
               
                 pw.close();
                 bw.close();
@@ -94,8 +94,8 @@ public class Archivo {
                 FileWriter fw = new FileWriter(archivo);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.write(jug1 + "\n");
-                pw.append(jug2 + "\n");
+                pw.write(jug1 + " | "+ tiempo + "\n");
+                pw.append(jug2 + " | "+ tiempo + "\n");
                 pw.close();
                 bw.close();
  

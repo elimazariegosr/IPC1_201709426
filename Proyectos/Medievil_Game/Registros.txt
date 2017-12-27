@@ -1,6 +1,2 @@
-Nombre: SAMUELITO  Oden: 1. mago 2. guerrero 3. princesa
-Nombre: PPP  Oden: 1. mago 2. guerrero 3. princesa
-Nombre: ELi  Oden: 1. mago 2. princesa 3. guerrero
-Nombre: SAMU  Oden: 1. guerrero 2. princesa 3. mago
-Nombre: Eli  Oden: 1. princesa 2. guerrero 3. mago
-Nombre: Samuel  Oden: 1. guerrero 2. mago 3. princesa
+Nombre: PROBANDO  Oden: 1. guerrero 2. mago 3. princesa | Tiempo 0:40s
+Nombre: 19  Oden: 1. princesa 2. guerrero 3. mago | Tiempo 0:40s

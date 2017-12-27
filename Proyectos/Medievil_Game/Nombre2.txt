@@ -1,4 +1,4 @@
-Nombre: Samuel
-1. guerrero
-2. mago
-3. princesa
+Nombre: 19
+1. princesa
+2. guerrero
+3. mago
